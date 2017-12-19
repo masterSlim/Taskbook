@@ -1,0 +1,9 @@
+.text{
+-fx-font-family: Roboto;
+-fx-color: rgb(254, 119, 35);
+}
+.button{
+-fx-color: rgb(254,119,35);
+-fx-text-fill: white;
+-fx-font-size: 14;
+}

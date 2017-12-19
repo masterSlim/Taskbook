@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View.TaskList">
+   <children>
+      <Label layoutX="40.0" layoutY="501.0" prefHeight="30.0" prefWidth="252.0" text="Имя пользователя" textFill="#00a9ff" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="14.0" layoutY="510.0" onDragDetected="#logOut" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="33.19999980926514" AnchorPane.leftAnchor="14.0">
+         <image>
+            <Image url="@../icons/logout.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <VBox layoutX="9.0" layoutY="59.0" prefHeight="420.0" prefWidth="419.0" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="59.0">
+         <children>
+            <TableView editable="true" prefHeight="469.0" prefWidth="419.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="287.0" text="Задача" />
+                <TableColumn prefWidth="131.0" text="Дедлайн" />
+              </columns>
+            </TableView>
+         </children></VBox>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="382.0" layoutY="496.0" onDragDetected="#addTask" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.069324493408203">
+         <image>
+            <Image url="@../icons/add.png" />
+         </image>
+      </ImageView>
+   </children>
+   <rotationAxis>
+      <Point3D />
+   </rotationAxis>
+</AnchorPane>
