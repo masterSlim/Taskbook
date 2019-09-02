@@ -1,0 +1,11 @@
+.text{
+-fx-font-family: Open Sans;
+-fx-font-size: 18;
+-fx-text-color: red;
+-fx-color: rgb(254, 119, 35);
+}
+.button{
+-fx-background-color: WHITE;
+-fx-text-fill: ORANGE;
+-fx-font-size: 18;
+}
