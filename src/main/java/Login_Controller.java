@@ -25,8 +25,8 @@ public class Login_Controller {
     @FXML
     private Button btnLogin;
 
-    void connection() throws SQLException{
-        if (ServiceDB.tryConnect()) {
+    void connection() throws SQLException {
+        if (Service_DB.testConnection()) {
             connectionStatus.setText("Подключено к серверу");
         } else {
             connectionStatus.setText("Подключение отсутствует");
@@ -40,16 +40,16 @@ public class Login_Controller {
     @FXML
     private void login() throws Exception {
         //метод, вызываемый по нажатию кнопки "Войти". Сейчас сравнивает правильность введённого логина и пароля с установленными непосредственно в методе
-        String rightLogin = "1";
-        String rightPassword = "1";
+        //String rightLogin = "1";
+        //String rightPassword = "1";
         //сравнивается введёное в fldLogin с локальной переменной rghtLogin
-        if ((fldLogin.getText().
-
-                equals(rightLogin) && (fldPassword.getText().
-
-                equals(rightPassword)))) {
-            //если всё введено правильно, то управление передаётся другому контроллеру, указанному в Main_Stage.fxml
-            Main_Stage_Controller.userName = fldLogin.getText();
+        Boolean login = Service_DB.tryLogin(fldLogin.getText(), fldPassword.getText());
+        if (login) {
+            //если всё введено правильно, в CurrentUser передаётся имя пользователя из введённого в поле fldLogin
+            CurrentUser.setUserName(fldLogin.getText());
+            //из базы данных получаем userId по переданному ранее userName и передаём его в CurrentUser
+            Service_User_DB.loadUserId(CurrentUser.getUserName());
+            //управление передаётся другому контроллеру, указанному в Main_Stage.fxml
             Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage.fxml")));
             stageMain.setScene(mainScene);
             //окно ввода логина и пароля закрывается

@@ -79,7 +79,7 @@
             <children>
                 <BorderPane prefHeight="115.0" prefWidth="758.0">
                     <top>
-                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Описание задачи:" BorderPane.alignment="CENTER_LEFT">
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Название задачи:" BorderPane.alignment="CENTER_LEFT">
                             <font>
                                 <Font name="Open Sans Semibold" size="18.0" />
                             </font>
@@ -118,7 +118,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </BorderPane>
-                <Text boundsType="LOGICAL_VERTICAL_CENTER" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Название задачи:" wrappingWidth="200.0">
+                <Text boundsType="LOGICAL_VERTICAL_CENTER" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Описание задачи:" wrappingWidth="200.0">
                     <font>
                         <Font name="Open Sans Semibold" size="18.0" />
                     </font>

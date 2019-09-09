@@ -17,7 +17,7 @@ public class New_Task_Controller {
     int executorId = 1; //нужно заменить вдальнейшем эти числа на получаемые из таблицы users
     java.sql.Date createDate = java.sql.Date.valueOf(LocalDate.now());
     java.sql.Date startDate = java.sql.Date.valueOf(LocalDate.now());
-    java.sql.Date closeDate = java.sql.Date.valueOf(LocalDate.now());
+    java.sql.Date deadline = java.sql.Date.valueOf(LocalDate.now());
     boolean isactive = true;
 
     @FXML
@@ -67,7 +67,7 @@ public class New_Task_Controller {
         //int random = (int) (Math.ceil(Math.random() * 10)); //пока вставил прямо в аргумент
         //!!!нужно передать данные от полей сцены в нужные поля для ServiceDB который ниже!!!        ;
         if(deadlineDatePicker.getValue() != null) {
-            closeDate = Date.valueOf(deadlineDatePicker.getValue());
+            deadline = Date.valueOf(deadlineDatePicker.getValue());
         }
         if(startDatePicker.getValue() != null){
             startDate = Date.valueOf(startDatePicker.getValue());
@@ -75,7 +75,7 @@ public class New_Task_Controller {
 
         isactive = activeCheckBox.isSelected();
 
-        ServiceDB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, closeDate, isactive);
+        Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, isactive);
         //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
 
         Main_Stage_Controller.stageNewTask.close();

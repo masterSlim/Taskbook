@@ -1,8 +1,12 @@
+LiteTask.class
 Task.class
 Login_Controller.class
+Service_User_DB.class
 New_Task.class
+Service_Task_DB.class
+CurrentUser.class
 Main.class
 Main_Stage_Controller.class
 New_Task_Controller.class
+Service_DB.class
 User.class
-ServiceDB.class
