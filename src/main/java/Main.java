@@ -7,9 +7,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    static Stage stage;
+    static Stage login;
 
-    public static void main(String[] args) {
+    public static void main() {
         //этот класс обязателен, и обязательно с вызовом метода launch(), именно эта конструкция запускает приложение
         launch();
     }
@@ -21,14 +21,14 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage = stageLogin;
-        stage.setTitle("Новая задача");
-        stage.setResizable(false);
+        login = stageLogin;
+        login.setTitle("Новая задача");
+        login.setResizable(false);
         //stageLogin.setMaxHeight(600);
-        stage.centerOnScreen();
+        login.centerOnScreen();
         //stageLogin.setMaxWidth(800);
-        stage.setScene(scene);
-        stage.show();
+        login.setScene(scene);
+        login.show();
     }
 
 }

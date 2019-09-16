@@ -1,74 +1,74 @@
 abstract class User {
-    private static int userId;
-    private static String userName;
-    private static String password;
-    private static String userpick;
-    private static boolean gender;
-    private static String position;
-    private static int phone;
-    private static String email;
+    private String userName;
+    private int userId;
+    private String password;
+    private String userpick;
+    private  boolean gender;
+    private  String position;
+    private  int phone;
+    private  String email;
 
-    public static int getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public static void setUserId(int userId) {
-        User.userId = userId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public static String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public static void setUserName(String userName) {
-        User.userName = userName;
+    public  void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public static String getPassword() {
+    public  String getPassword() {
         return password;
     }
 
-    public static void setPassword(String password) {
-        User.password = password;
+    public  void setPassword(String password) {
+        this.password = password;
     }
 
-    public static String getUserpick() {
+    public  String getUserpick() {
         return userpick;
     }
 
-    public static void setUserpick(String userpick) {
-        User.userpick = userpick;
+    public  void setUserpick(String userpick) {
+        this.userpick = userpick;
     }
 
-    public static boolean isGender() {
+    public  boolean isGender() {
         return gender;
     }
 
-    public static void setGender(boolean gender) {
-        User.gender = gender;
+    public  void setGender(boolean gender) {
+        this.gender = gender;
     }
 
-    public static String getPosition() {
+    public  String getPosition() {
         return position;
     }
 
-    public static void setPosition(String position) {
-        User.position = position;
+    public  void setPosition(String position) {
+        this.position = position;
     }
 
-    public static int getPhone() {
+    public  int getPhone() {
         return phone;
     }
 
-    public static void setPhone(int phone) {
-        User.phone = phone;
+    public  void setPhone(int phone) {
+        this.phone = phone;
     }
 
-    public static String getEmail() {
+    public  String getEmail() {
         return email;
     }
 
-    public static void setEmail(String email) {
-        User.email = email;
+    public  void setEmail(String email) {
+        this.email = email;
     }
 }

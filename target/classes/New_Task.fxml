@@ -68,7 +68,7 @@
         </VBox>
         <BorderPane layoutX="15.0" layoutY="327.0" prefHeight="100.0" prefWidth="1248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <center>
-                <Button fx:id="saveButton" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveTask" prefHeight="45.0" prefWidth="120.0" stylesheets="/view/Style.css" text="ГОТОВО!" textFill="WHITE" BorderPane.alignment="CENTER">
+                <Button fx:id="saveButton" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveTask" prefHeight="45.0" prefWidth="120.0" styleClass="button" text="ГОТОВО!" BorderPane.alignment="CENTER">
                     <font>
                         <Font size="9.0" />
                     </font>

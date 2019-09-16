@@ -2,95 +2,95 @@ import java.util.Date;
 
 abstract class Task {
 
-    private static int taskId;
-    private static Byte priority;
-    private static int creatorId;
-    private static String title;
-    private static String task;
-    private static int executorId;
-    private static String createDateTime;
-    private static String closeDateTime;
-    private static Date deadline;
-    private static Boolean active;
+    private int taskId;
+    private Byte priority;
+    private int creatorId;
+    private String title;
+    private String task;
+    private int executorId;
+    private String createDateTime;
+    private String closeDateTime;
+    private Date deadline;
+    private Boolean active;
 
-    public static int getTaskId() {
-        return taskId;
-    }
-
-    public static void setTaskId(int taskId) {
-        Task.taskId = taskId;
-    }
-
-    public static Byte getPriority() {
+    public Byte getPriority() {
         return priority;
     }
 
-    public static void setPriority(Byte priority) {
-        Task.priority = priority;
+    public void setPriority(Byte priority) {
+        this.priority = priority;
     }
 
-    public static int getCreatorId() {
+    public int getCreatorId() {
         return creatorId;
     }
 
-    public static void setCreatorId(int creatorId) {
-        Task.creatorId = creatorId;
+    public void setCreatorId(int creatorId) {
+        this.creatorId = creatorId;
     }
 
-    public static String getTitle() {
-        return title;
-    }
-
-    public static void setTitle(String title) {
-        Task.title = title;
-    }
-
-    public static String getTask() {
+    public String getTask() {
         return task;
     }
 
-    public static void setTask(String task) {
-        Task.task = task;
+    public void setTask(String task) {
+        this.task = task;
     }
 
-    public static int getExecutorId() {
+    public int getExecutorId() {
         return executorId;
     }
 
-    public static void setExecutorId(int executorId) {
-        Task.executorId = executorId;
+    public void setExecutorId(int executorId) {
+        this.executorId = executorId;
     }
 
-    public static String getCreateDateTime() {
+    public String getCreateDateTime() {
         return createDateTime;
     }
 
-    public static void setCreateDateTime(String createDateTime) {
-        Task.createDateTime = createDateTime;
+    public void setCreateDateTime(String createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
-    public static String getCloseDateTime() {
+    public String getCloseDateTime() {
         return closeDateTime;
     }
 
-    public static void setCloseDateTime(String closeDateTime) {
-        Task.closeDateTime = closeDateTime;
+    public void setCloseDateTime(String closeDateTime) {
+        this.closeDateTime = closeDateTime;
     }
 
-    public static Date getDeadline() {
-        return deadline;
-    }
-
-    public static void setDeadline(Date deadline) {
-        Task.deadline = deadline;
-    }
-
-    public static Boolean getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public static void setActive(Boolean active) {
-        Task.active = active;
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
 

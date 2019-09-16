@@ -1,4 +1,3 @@
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,57 +6,58 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class Main_Stage_Controller {
     @FXML
     static Stage stageNewTask = new Stage();
     @FXML
-    private TableColumn<Integer, Integer> columnId;
+    private TableColumn<Task_Lite, Integer> columnId;
     @FXML
-    private TableColumn columnTaskTitle;
+    private TableColumn<Task_Lite, String> columnTaskTitle;
     @FXML
-    private TableColumn columnDeadline;
+    private TableColumn<Task_Lite, Date> columnDeadline;
     @FXML
     private Label user;
     @FXML
-    private TableView tableTaskLite;
-    private ObservableList<Task> userTask = FXCollections.observableArrayList();
+    private TableView<Task_Lite> tableTaskLite;
+    @FXML
+    private ImageView logOutId;
 
+    @FXML
     public void logOut() {
+        Login_Controller.close();
+        Main.login.show();
     }
 
     @FXML
     public void initialize() throws SQLException {
         //устанавливается пользователь введённый и переданный Login_Controller
-        user.setText(CurrentUser.getUserName());       ;
-        //tableTaskLite.setItems(Service_Task_DB.getTasksLite(CurrentUser.getUserId()));
+        //logOutId.setCursor(Cursor.HAND);
+        user.setText(Current_User.getUserName());
+        columnId.setCellValueFactory(new PropertyValueFactory<Task_Lite, Integer>("taskId"));
+        columnTaskTitle.setCellValueFactory(new PropertyValueFactory<Task_Lite, String>("title"));
+        columnDeadline.setCellValueFactory(new PropertyValueFactory<Task_Lite, Date>("deadline"));
+        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksLite(Current_User.getUserId());
+        //System.out.println(tasksCurrentUser.get(0).getTitle()+""+tasksCurrentUser.get(1).getTitle());
+        tableTaskLite.setItems(tasksCurrentUser);
+/*        for (int i = 1; i < tasksCurrentUser.size(); i++) {
+            System.out.println(tasksCurrentUser.get(i-1).getTitle());
+        }*/
 
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnTaskTitle.setCellValueFactory(new PropertyValueFactory<String, String>("title"));
-        columnDeadline.setCellValueFactory(new PropertyValueFactory<Date, Date>("deadline"));
-        ObservableList<Object[]> tasksCurrentUser = Service_Task_DB.getTasksLite(CurrentUser.getUserId());
-        //int test = tasksCurrentUser.size();
-        for(int i = 1; i <= tasksCurrentUser.size(); i++){
-            Object[] a = tasksCurrentUser.get(i-1);
-            int id = Integer.parseInt(a[0].toString());
-            String title = a[1].toString();
-            Date deadline = Date.valueOf(a[2].toString());
-            !!! нужно заносить данные в строку таблицы во время прохождения цикла!!!
-            System.out.println(id);
-            System.out.println(title);
-            System.out.println(deadline);
-        }
-        //user.setText(userName);
-        //пока таблица users пустая, преобразовываю имя пользователя в Id для тестов
-        //int userId = ServiceDB.tryLogin().;
-        //ServiceDB.getTask(userId);
+    }
+
+    @FXML
+    public void openTask() throws IOException, NoSuchFieldException {
+        Current_Task_Controller.selected = tableTaskLite.getSelectionModel().getSelectedItem().getTaskId();
+        Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("CurrentTask.fxml"))));
+        stageNewTask.setScene(openTask);
+        stageNewTask.show();
     }
 
     @FXML

@@ -14,14 +14,13 @@ public class Login_Controller {
 
     @FXML
     public static String login;
-    @FXML
-    public Stage stageMain = new Stage();
+    public static Stage stageMain = new Stage();
     @FXML
     Label connectionStatus;
     @FXML
-    private TextField fldLogin;
+    public TextField fldLogin;
     @FXML
-    private PasswordField fldPassword;
+    public PasswordField fldPassword;
     @FXML
     private Button btnLogin;
 
@@ -43,23 +42,26 @@ public class Login_Controller {
         //String rightLogin = "1";
         //String rightPassword = "1";
         //сравнивается введёное в fldLogin с локальной переменной rghtLogin
-        Boolean login = Service_DB.tryLogin(fldLogin.getText(), fldPassword.getText());
+        boolean login = Service_DB.tryLogin(fldLogin.getText(), fldPassword.getText());
+       // CurrentUser currentUser = new CurrentUser();
         if (login) {
-            //если всё введено правильно, в CurrentUser передаётся имя пользователя из введённого в поле fldLogin
-            CurrentUser.setUserName(fldLogin.getText());
+            //если всё введено правильно, в currentUser передаётся имя пользователя из введённого в поле fldLogin
+            Current_User.setUserName(fldLogin.getText());
             //из базы данных получаем userId по переданному ранее userName и передаём его в CurrentUser
-            Service_User_DB.loadUserId(CurrentUser.getUserName());
+            Service_User_DB.loadUserId(Current_User.getUserName());
             //управление передаётся другому контроллеру, указанному в Main_Stage.fxml
             Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage.fxml")));
             stageMain.setScene(mainScene);
+            fldPassword.clear();
+            fldLogin.clear();
             //окно ввода логина и пароля закрывается
-            Main.stage.close();
+            Main.login.close();
             //открывается Main Stage
             stageMain.show();
         } else {
             //если хотя-бы одно из полей введено неправильно срабатывает else, которое выводит в консоль сообщение
-            fldLogin.setText("");
-            fldPassword.setText("");
+            fldLogin.clear();
+            fldPassword.clear();
             System.out.println("Wrong Login/Password");
         }
 
@@ -69,7 +71,8 @@ public class Login_Controller {
 
     }
 
-    public void close(MouseEvent mouseEvent) {
+    public static void close() {
+        stageMain.close();
     }
 }
 

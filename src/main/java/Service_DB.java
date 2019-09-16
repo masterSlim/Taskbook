@@ -5,12 +5,12 @@ class Service_DB {
     private static String serverPassword = "root";
     private static String connectionUrl = "jdbc:mysql://127.0.0.1:3306/Taskbook? serverTimezone=UTC";
 
-    private static Connection connection = null;
+    //private static Connection connection = null;
 
     static boolean testConnection() throws SQLException {
         //метод устанавливающий соединение с сервером базы данных и возвращающий true при подключении
         // и false при неудаче
-        Connection testConnection = DriverManager.getConnection(connectionUrl, serverLogin, serverPassword);
+        Connection testConnection = getConnection();
         try (testConnection) {
             //возвращает противоположное значение от isClosed. Если isClosed = true - значит подключение
             // закрыто и всему методу нужно вернуть отрицательный ответ о подключении - false (т.е. !siClosed)
@@ -25,13 +25,18 @@ class Service_DB {
         }
     }
 
+    public static Connection getConnection() throws SQLException {
+        Connection connection = DriverManager.getConnection(connectionUrl, serverLogin, serverPassword);
+        return connection;
+    }
+
 
     public static boolean tryLogin(String login, String password) throws SQLException {
         //недописан
         String rightPassword;
-        connection = DriverManager.getConnection(connectionUrl, serverLogin, serverPassword);
+        ;
         try {
-            PreparedStatement tryLogin = connection.prepareStatement("SELECT password FROM users WHERE username = ?;");
+            PreparedStatement tryLogin = getConnection().prepareStatement("SELECT password FROM users WHERE user_name = ?;");
             tryLogin.setString(1, login);
             ResultSet rsTryLogin = tryLogin.executeQuery();
             rsTryLogin.next();
@@ -40,11 +45,11 @@ class Service_DB {
                 /*ниже - проба получить данные пользователя из базы данных отсюда
                 PreparedStatement getUserStatement = connection.prepareStatement("SELECT * FROM users where username = ?;");
                 ResultSet getUser = getUserStatement.executeQuery();*/
-                connection.close();
+                getConnection().close();
                 return true;
             } else {
                 System.out.println("Error in password");
-                connection.close();
+                getConnection().close();
                 return false;
             }
 
@@ -54,21 +59,12 @@ class Service_DB {
         }
     }
 
-    public static void getTask() throws SQLException {
-        //метод позволяет получить задачи для переданного пользователя
-        //Connection connection = DriverManager.getConnection(connectionUrl, serverLogin, serverPassword);
-        //PreparedStatement getTask = connection.prepareStatement("SELECT * from tasks where executor_id = ?;");
-        //getTask.setInt(1, userId);
-
-    }
-
-
     public void setServerLogin(String serverLogin) {
-        this.serverLogin = serverLogin;
+        Service_DB.serverLogin = serverLogin;
     }
 
     public void setServerPassword(String serverPassword) {
-        this.serverPassword = serverPassword;
+        Service_DB.serverPassword = serverPassword;
     }
 
     public void setServerConnectionUrl(String host, String port, String schema) {
@@ -76,31 +72,7 @@ class Service_DB {
     }
 
 }
-// нужно сформировать запрос в таблицу по формированию записи
-// *
-       /* try {
-            // opening database connection to MySQL server
-            con = DriverManager.getConnection(url, user, password);
 
-            // getting Statement object to execute query
-            stmt = con.createStatement();
-
-            // executing SELECT query
-            rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                int count = rs.getInt(1);
-                System.out.println("Total number of books in the table : " + count);
-            }
-
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        } finally {
-            //close connection ,stmt and resultset here
-            try { con.close(); } catch(SQLException se) { *//*can't do anything *//* }
-            try { stmt.close(); } catch(SQLException se) { *//*can't do anything *//* }
-            try { rs.close(); } catch(SQLException se) { *//*can't do anything *//* }
-        }*/
 
 
 

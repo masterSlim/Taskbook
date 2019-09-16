@@ -1,3 +1,5 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,14 +29,13 @@ public class New_Task_Controller {
     @FXML
     private ImageView priorityButton;
     @FXML
-    private ChoiceBox executorIdBox;
+    private ChoiceBox<String> executorIdBox;
     @FXML
     private DatePicker deadlineDatePicker;
     @FXML
     private DatePicker startDatePicker;
     @FXML
     private CheckBox activeCheckBox;
-
 
 
     // метод, меняющий приоритет задачи по нажатию кнопки
@@ -45,6 +46,16 @@ public class New_Task_Controller {
     }*/
 
     //метод преобразовывающий введённые в тектстовые поля данные в одну цельную задачу
+
+    @FXML
+    public void initialize() throws SQLException {
+        ObservableList<String> userNames = FXCollections.observableArrayList();
+        for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
+            userNames.add(Service_User_DB.getAllUsers().get(i-1).getUserName());
+        }
+        executorIdBox.setItems(userNames);
+    }
+
     @FXML
     private byte changePriority(MouseEvent mouseEvent) {
         if (priority == (byte) 0) {
@@ -57,23 +68,23 @@ public class New_Task_Controller {
             return priority;
         }
     }
-/*    @FXML
-    private boolean active(MouseEvent mouseEvent){
-        return isactive;
-    }*/
 
     @FXML
     public void saveTask(MouseEvent mouseEvent) throws SQLException {
-        //int random = (int) (Math.ceil(Math.random() * 10)); //пока вставил прямо в аргумент
         //!!!нужно передать данные от полей сцены в нужные поля для ServiceDB который ниже!!!        ;
-        if(deadlineDatePicker.getValue() != null) {
+        if (deadlineDatePicker.getValue() != null) {
             deadline = Date.valueOf(deadlineDatePicker.getValue());
         }
-        if(startDatePicker.getValue() != null){
+        if (startDatePicker.getValue() != null) {
             startDate = Date.valueOf(startDatePicker.getValue());
         }
 
         isactive = activeCheckBox.isSelected();
+
+        for (int i =1; i<=Service_User_DB.getAllUsers().size(); i++){
+            if (executorIdBox.getValue().equals(Service_User_DB.getAllUsers().get(i-1).getUserName()))
+            executorId = Service_User_DB.getAllUsers().get(i-1).getUserId();
+        }
 
         Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, isactive);
         //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
