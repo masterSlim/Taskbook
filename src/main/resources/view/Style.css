@@ -23,3 +23,8 @@
 .imageButton{
 -fx-cursor: hand;
 }
+.area{
+-fx-border-color:black;
+-fx-border-width: 1;
+-fx-border-style: dashed;
+}

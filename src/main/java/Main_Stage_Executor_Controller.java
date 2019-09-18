@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class Main_Stage_Controller {
+public class Main_Stage_Executor_Controller {
     @FXML
     static Stage stageNewTask = new Stage();
     @FXML
@@ -38,24 +38,18 @@ public class Main_Stage_Controller {
     @FXML
     public void initialize() throws SQLException {
         //устанавливается пользователь введённый и переданный Login_Controller
-        //logOutId.setCursor(Cursor.HAND);
         user.setText(Current_User.getUserName());
-        columnId.setCellValueFactory(new PropertyValueFactory<Task_Lite, Integer>("taskId"));
-        columnTaskTitle.setCellValueFactory(new PropertyValueFactory<Task_Lite, String>("title"));
-        columnDeadline.setCellValueFactory(new PropertyValueFactory<Task_Lite, Date>("deadline"));
-        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksLite(Current_User.getUserId());
-        //System.out.println(tasksCurrentUser.get(0).getTitle()+""+tasksCurrentUser.get(1).getTitle());
+        columnId.setCellValueFactory(new PropertyValueFactory<>("taskId"));
+        columnTaskTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        columnDeadline.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksExctrLite(Current_User.getUserId());
         tableTaskLite.setItems(tasksCurrentUser);
-/*        for (int i = 1; i < tasksCurrentUser.size(); i++) {
-            System.out.println(tasksCurrentUser.get(i-1).getTitle());
-        }*/
-
     }
 
     @FXML
-    public void openTask() throws IOException, NoSuchFieldException {
-        Current_Task_Controller.selected = tableTaskLite.getSelectionModel().getSelectedItem().getTaskId();
-        Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("CurrentTask.fxml"))));
+    public void openTask() throws IOException {
+        Current_Task_Executor_Controller.selected = tableTaskLite.getSelectionModel().getSelectedItem().getTaskId();
+        Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Current_Task_Executor.fxml"))));
         stageNewTask.setScene(openTask);
         stageNewTask.show();
     }
@@ -67,6 +61,5 @@ public class Main_Stage_Controller {
         Scene sceneNewTask = new Scene(FXMLLoader.load(getClass().getResource("New_Task.fxml")));
         stageNewTask.setScene(sceneNewTask);
         stageNewTask.show();
-        //rootPane.getChildren().setAll(pane);
     }
 }

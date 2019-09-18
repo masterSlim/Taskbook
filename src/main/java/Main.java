@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Main extends Application {
     static Stage login;
 
-    public static void main() {
+    public static void main(String[] args) {
         //этот класс обязателен, и обязательно с вызовом метода launch(), именно эта конструкция запускает приложение
         launch();
     }

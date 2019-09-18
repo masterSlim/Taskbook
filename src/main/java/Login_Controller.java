@@ -8,31 +8,36 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class Login_Controller {
 
     @FXML
-    public static String login;
-    public static Stage stageMain = new Stage();
-    @FXML
-    Label connectionStatus;
+    static String login;
+    private static Stage stageMain = new Stage();
     @FXML
     public TextField fldLogin;
     @FXML
     public PasswordField fldPassword;
     @FXML
+    Label connectionStatus;
+    @FXML
     private Button btnLogin;
 
-    void connection() throws SQLException {
-        if (Service_DB.testConnection()) {
-            connectionStatus.setText("Подключено к серверу");
-        } else {
+    public static void close() {
+        stageMain.close();
+    }
+
+    private void connection(){
+        try {
+            boolean connect = Service_DB.testConnection();
+            if (connect) {
+                connectionStatus.setText("Подключено к серверу");
+            }
+        } catch (Exception e) {
             connectionStatus.setText("Подключение отсутствует");
         }
     }
 
-    public void initialize() throws SQLException, ClassNotFoundException {
+    public void initialize() throws Exception {
         connection();
     }
 
@@ -43,21 +48,37 @@ public class Login_Controller {
         //String rightPassword = "1";
         //сравнивается введёное в fldLogin с локальной переменной rghtLogin
         boolean login = Service_DB.tryLogin(fldLogin.getText(), fldPassword.getText());
-       // CurrentUser currentUser = new CurrentUser();
+        // CurrentUser currentUser = new CurrentUser();
         if (login) {
             //если всё введено правильно, в currentUser передаётся имя пользователя из введённого в поле fldLogin
-            Current_User.setUserName(fldLogin.getText());
             //из базы данных получаем userId по переданному ранее userName и передаём его в CurrentUser
-            Service_User_DB.loadUserId(Current_User.getUserName());
-            //управление передаётся другому контроллеру, указанному в Main_Stage.fxml
-            Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage.fxml")));
-            stageMain.setScene(mainScene);
-            fldPassword.clear();
-            fldLogin.clear();
-            //окно ввода логина и пароля закрывается
-            Main.login.close();
-            //открывается Main Stage
-            stageMain.show();
+            //управление передаётся другому контроллеру, указанному в Main_Stage_Executor.fxml
+            Current_User.setUserName(fldLogin.getText());
+            Service_User_DB.setUserId(Current_User.getUserName());
+            if (Service_User_DB.getUserPosition(Current_User.getUserId()).equals("Руководитель")) {
+                /* если авторизовавшийся пользователь - руководитель, то открывается окно
+                с редактированием задач Main_Stage_Manager*/
+                Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage_Manager.fxml")));
+                stageMain.setScene(mainScene);
+                fldPassword.clear();
+                fldLogin.clear();
+                //окно ввода логина и пароля закрывается
+                Main.login.close();
+                //открывается Main Stage
+                stageMain.show();
+            }
+            else {
+                  /* если авторизовавшийся пользователь - не руководитель, то открывается окно
+                с редактированием задач Main_Stage_Manager*/
+                Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage_Executor.fxml")));
+                stageMain.setScene(mainScene);
+                fldPassword.clear();
+                fldLogin.clear();
+                //окно ввода логина и пароля закрывается
+                Main.login.close();
+                //открывается Main Stage
+                stageMain.show();
+            }
         } else {
             //если хотя-бы одно из полей введено неправильно срабатывает else, которое выводит в консоль сообщение
             fldLogin.clear();
@@ -69,10 +90,6 @@ public class Login_Controller {
 
     public void mouseDrag(MouseEvent mouseEvent) {
 
-    }
-
-    public static void close() {
-        stageMain.close();
     }
 }
 
