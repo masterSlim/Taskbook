@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="pane" maxHeight="1024.0" maxWidth="1280.0" minHeight="1024.0" minWidth="1280.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="1024.0" prefWidth="1280.0" styleClass="text" stylesheets="/view/Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="New_Task_Controller">
+    <children>
+        <VBox layoutX="797.0" prefHeight="935.0" prefWidth="483.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Исполнитель">
+                    <font>
+                        <Font name="Open Sans Semibold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets left="10.0" top="30.0" />
+                    </VBox.margin>
+                </Label>
+                <ChoiceBox fx:id="executorIdBox" prefHeight="45.0" prefWidth="483.0">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="25.0" />
+                    </VBox.margin>
+                </ChoiceBox>
+                <Label text="Дата начала">
+                    <font>
+                        <Font name="Open Sans Semibold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <DatePicker fx:id="startDatePicker" prefHeight="40.0" prefWidth="350.0" promptText="когда задача становится актульна">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="20.0" />
+                    </VBox.margin>
+                </DatePicker>
+                <Label text="Дедлайн">
+                    <font>
+                        <Font name="Open Sans Semibold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <DatePicker fx:id="deadlineDatePicker" prefHeight="40.0" prefWidth="350.0" promptText="выберите дату сдачи работы">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="20.0" />
+                    </VBox.margin>
+                </DatePicker>
+            <TilePane fx:id="fileTilePane" prefColumns="60" prefHeight="200.0" prefRows="40" prefTileHeight="90.0" prefTileWidth="70.0" prefWidth="200.0" styleClass="area">
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="CROSSHAIR" />
+               </cursor>
+            </TilePane>
+            </children>
+            <padding>
+                <Insets right="25.0" />
+            </padding>
+        </VBox>
+        <BorderPane layoutX="15.0" layoutY="327.0" prefHeight="100.0" prefWidth="1248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <center>
+                <Button fx:id="saveButton" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveTask" prefHeight="45.0" prefWidth="120.0" styleClass="button" text="ГОТОВО!" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font size="9.0" />
+                    </font>
+                </Button>
+            </center>
+        </BorderPane>
+        <VBox prefHeight="935.0" prefWidth="788.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <BorderPane prefHeight="115.0" prefWidth="758.0">
+                    <top>
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Название задачи:" BorderPane.alignment="CENTER_LEFT">
+                            <font>
+                                <Font name="Open Sans Semibold" size="18.0" />
+                            </font>
+                            <BorderPane.margin>
+                                <Insets top="20.0" />
+                            </BorderPane.margin>
+                        </Text>
+                    </top>
+                    <left>
+                        <TextField fx:id="titleField" focusTraversable="false" maxHeight="45.0" maxWidth="631.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="631.0" promptText="Сюда вводится только название" styleClass="text" stylesheets="/view/Style.css" BorderPane.alignment="CENTER">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <cursor>
+                                <Cursor fx:constant="TEXT" />
+                            </cursor>
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" height="5.97" offsetY="0.7" radius="0.9924999999999999" spread="0.19" width="0.0" />
+                            </effect>
+                            <BorderPane.margin>
+                                <Insets top="20.0" />
+                            </BorderPane.margin>
+                        </TextField>
+                    </left>
+                    <center>
+                        <ImageView fx:id="priorityButton" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#changePriority" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                            <image>
+                                <Image url="@icons/priority_normal.png" />
+                            </image>
+                            <BorderPane.margin>
+                                <Insets top="20.0" />
+                            </BorderPane.margin>
+                        </ImageView>
+                    </center>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </BorderPane>
+                <Text boundsType="LOGICAL_VERTICAL_CENTER" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Описание задачи:" wrappingWidth="200.0">
+                    <font>
+                        <Font name="Open Sans Semibold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Text>
+                <TextArea fx:id="taskArea" focusTraversable="false" prefHeight="986.0" prefWidth="743.0" promptText="Здесь вводится полное её описание">
+                    <VBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="20.0" />
+                    </VBox.margin>
+                </TextArea>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="25.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+        <Hyperlink fx:id="cancelLink" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="14.0" layoutY="404.0" onMouseClicked="#cancel" text="Отменить" textAlignment="RIGHT" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="14.0" />
+        <Hyperlink fx:id="laterButton" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="485.0" layoutY="404.0" onMouseClicked="#draft" text="Допишу потом..." textAlignment="RIGHT" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="14.0" />
+    </children>
+</AnchorPane>
