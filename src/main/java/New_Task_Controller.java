@@ -4,10 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +31,6 @@ public class New_Task_Controller {
     private Date createDate = java.sql.Date.valueOf(LocalDate.now());
     private Date startDate = java.sql.Date.valueOf(LocalDate.now());
     private Date deadline = java.sql.Date.valueOf(LocalDate.now());
-    boolean isactive = true;
-
     @FXML
     private TextField titleField;
     @FXML
@@ -49,19 +47,19 @@ public class New_Task_Controller {
     private Hyperlink laterButton;
     @FXML
     private TilePane fileTilePane;
-    private List<String[]> filesPaths;
+    private List<String[]> filesPaths = new ArrayList<>();
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Hyperlink cancelLink;
 
-    // метод, меняющий приоритет задачи по нажатию кнопки
-   /* public void changePriority() {
-        if (getPriority() == (byte) 0) {
-
-        }
-    }*/
 
     //метод преобразовывающий введённые в тектстовые поля данные в одну цельную задачу
 
     @FXML
-    public void initialize() throws SQLException {
+    public void initialize() throws Exception {
+        startDatePicker.setValue(LocalDate.now());
+        deadlineDatePicker.setValue(LocalDate.now().plusDays(3));
         ObservableList<String> userNames = FXCollections.observableArrayList();
         for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
             userNames.add(Service_User_DB.getAllUsers().get(i - 1).getUserName());
@@ -75,11 +73,13 @@ public class New_Task_Controller {
         });
         fileTilePane.setOnDragDropped(dragEvent -> {
             List<File> files = dragEvent.getDragboard().getFiles();
-            filesPaths = new ArrayList<>(files.size());
             for (int i = 1; i <= files.size(); i++) {
                 String[] temp = {files.get(i - 1).getName(), files.get(i - 1).getPath()};
-                filesPaths.add(i - 1, temp);
+                filesPaths.add(temp);
+                fileTilePane.getChildren().add(new File_Review().fileReview(files.get(i - 1)));
             }
+            files.clear();
+            dragEvent.consume();
         });
     }
 
@@ -127,19 +127,24 @@ public class New_Task_Controller {
                 Files.copy(originalFilePath, newFilePath, StandardCopyOption.REPLACE_EXISTING);
             }
         }
-
         Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, true);
-        //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
-
-        Main_Stage_Executor_Controller.stageNewTask.close();
+        Main_Stage_Executor_Controller a=new Main_Stage_Executor_Controller();
+        a.refreshTable();
+        Main_Stage_Manager_Controller b = new Main_Stage_Manager_Controller();
+        b.refreshTable();
+        Stage close = (Stage) saveButton.getScene().getWindow();
+        close.close();
     }
 
 
-    //метод, отправляющий заполненную форму на сервер
-
     @FXML
-    public void cancel(MouseEvent mouseEvent) {
-        Main_Stage_Executor_Controller.stageNewTask.close();
+    public void cancel(MouseEvent mouseEvent) throws SQLException {
+        Main_Stage_Executor_Controller a=new Main_Stage_Executor_Controller();
+        a.refreshTable();
+        Main_Stage_Manager_Controller b = new Main_Stage_Manager_Controller();
+        b.refreshTable();
+        Stage close = (Stage) cancelLink.getScene().getWindow();
+        close.close();
     }
 
     public void draft(MouseEvent mouseEvent) throws SQLException {
@@ -157,16 +162,11 @@ public class New_Task_Controller {
 
         Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, false);
         //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
-
-        Main_Stage_Executor_Controller.stageNewTask.close();
-    }
-
-    public void addFile(MouseDragEvent mouseDragEvent) {
+        Main_Stage_Executor_Controller a=new Main_Stage_Executor_Controller();
+        a.refreshTable();
+        Main_Stage_Manager_Controller b = new Main_Stage_Manager_Controller();
+        b.refreshTable();
+        Stage close = (Stage) laterButton.getScene().getWindow();
+        close.close();
     }
 }
-
-/*    public void saveTask(MouseEvent mouseEvent) {
-
-        Main_Stage_Controller.stageNewTask.close();
-    }*/
-

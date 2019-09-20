@@ -28,21 +28,28 @@ public class Main_Stage_Executor_Controller {
     private TableView<Task_Lite> tableTaskLite;
     @FXML
     private ImageView logOutId;
+    int userId;
 
     @FXML
     public void logOut() {
         Login_Controller.close();
         Main.login.show();
     }
+    @FXML
+    public void refreshTable() throws SQLException {
+        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksExctrLite(userId);
+        tableTaskLite.setItems(tasksCurrentUser);
+    }
 
     @FXML
     public void initialize() throws SQLException {
         //устанавливается пользователь введённый и переданный Login_Controller
         user.setText(Current_User.getUserName());
+         userId = Current_User.getUserId();
         columnId.setCellValueFactory(new PropertyValueFactory<>("taskId"));
         columnTaskTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         columnDeadline.setCellValueFactory(new PropertyValueFactory<>("deadline"));
-        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksExctrLite(Current_User.getUserId());
+        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksExctrLite(userId);
         tableTaskLite.setItems(tasksCurrentUser);
     }
 

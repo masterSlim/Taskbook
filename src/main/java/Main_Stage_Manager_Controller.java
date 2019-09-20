@@ -15,7 +15,9 @@ import java.sql.SQLException;
 
 public class Main_Stage_Manager_Controller {
     @FXML
-    private static Stage stageNewTask = new Stage();
+    static Stage stageNewTask = new Stage();
+    @FXML
+    private TableView<Task_Lite> tableTaskLite;
     @FXML
     private TableColumn<Task_Lite, Integer> columnId;
     @FXML
@@ -25,9 +27,13 @@ public class Main_Stage_Manager_Controller {
     @FXML
     private Label user;
     @FXML
-    private TableView<Task_Lite> tableTaskLite;
-    @FXML
     private ImageView logOutId;
+
+    @FXML
+    public void refreshTable() throws SQLException {
+        ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksMngrLite(Current_User.getUserId());
+        tableTaskLite.setItems(tasksCurrentUser);
+    }
 
     @FXML
     public void logOut() {
@@ -36,19 +42,17 @@ public class Main_Stage_Manager_Controller {
     }
 
     @FXML
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, IOException {
         //устанавливается пользователь введённый и переданный Login_Controller
         user.setText(Current_User.getUserName());
         columnId.setCellValueFactory(new PropertyValueFactory<>("taskId"));
         columnTaskTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         columnDeadline.setCellValueFactory(new PropertyValueFactory<>("deadline"));
         ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksMngrLite(Current_User.getUserId());
-        System.out.println(tasksCurrentUser.get(0).getTitle()+""+tasksCurrentUser.get(1).getTitle());
         tableTaskLite.setItems(tasksCurrentUser);
     }
-
     @FXML
-    public void openTask() throws IOException{
+    public void openTask() throws IOException {
         Current_Task_Manager_Controller.selected = tableTaskLite.getSelectionModel().getSelectedItem().getTaskId();
         Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Current_Task_Manager.fxml"))));
         stageNewTask.setScene(openTask);

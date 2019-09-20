@@ -27,7 +27,7 @@ class Service_Task_DB {
         Service_DB.getConnection().close();
     }
 
-    static ObservableList<Task_Lite> getTasksExctrLite(int userId) throws SQLException {
+    public static ObservableList<Task_Lite> getTasksExctrLite(int userId) throws SQLException {
         try {
             PreparedStatement getTasksLite = Service_DB.getConnection().prepareStatement("SELECT task_id, title, deadline FROM tasks WHERE executor_id =? AND is_active = ? ;");
             getTasksLite.setInt(1, userId);
