@@ -26,15 +26,12 @@ class Service_DB {
     }
 
     public static Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(connectionUrl, serverLogin, serverPassword);
-        return connection;
+        return DriverManager.getConnection(connectionUrl, serverLogin, serverPassword);
     }
 
 
-    public static boolean tryLogin(String login, String password) throws SQLException {
-        //недописан
+    public static boolean tryLogin(String login, String password){
         String rightPassword;
-        ;
         try {
             PreparedStatement tryLogin = getConnection().prepareStatement("SELECT password FROM users WHERE user_name = ?;");
             tryLogin.setString(1, login);
@@ -42,9 +39,6 @@ class Service_DB {
             rsTryLogin.next();
             rightPassword = rsTryLogin.getString("password");
             if (password.equals(rightPassword)) {
-                /*ниже - проба получить данные пользователя из базы данных отсюда
-                PreparedStatement getUserStatement = connection.prepareStatement("SELECT * FROM users where username = ?;");
-                ResultSet getUser = getUserStatement.executeQuery();*/
                 getConnection().close();
                 return true;
             } else {
@@ -52,22 +46,23 @@ class Service_DB {
                 getConnection().close();
                 return false;
             }
-
-
         } catch (Exception e) {
             return false;
         }
     }
 
     public void setServerLogin(String serverLogin) {
+        //заготовка для окна настройки
         Service_DB.serverLogin = serverLogin;
     }
 
     public void setServerPassword(String serverPassword) {
+        //заготовка для окна настройки
         Service_DB.serverPassword = serverPassword;
     }
 
     public void setServerConnectionUrl(String host, String port, String schema) {
+        //заготовка для окна настройки
         connectionUrl = "jdbc:mysql://" + host.replaceAll(" ", "") + ":" + port.replaceAll(" ", "") + "/" + schema + "? serverTimezone=UTC";
     }
 

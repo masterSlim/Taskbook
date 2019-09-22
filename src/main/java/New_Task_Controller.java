@@ -26,8 +26,8 @@ import java.util.List;
 public class New_Task_Controller {
     @FXML
     private byte priority = (byte) 0;
-    private int creatorId; //нужно аменить вдальнейшем эти числа на получаемые из таблицы users
-    private int executorId; //нужно заменить вдальнейшем эти числа на получаемые из таблицы users
+    private int creatorId;
+    private int executorId;
     private Date createDate = java.sql.Date.valueOf(LocalDate.now());
     private Date startDate = java.sql.Date.valueOf(LocalDate.now());
     private Date deadline = java.sql.Date.valueOf(LocalDate.now());
@@ -65,6 +65,7 @@ public class New_Task_Controller {
             userNames.add(Service_User_DB.getAllUsers().get(i - 1).getUserName());
         }
         executorIdBox.setItems(userNames);
+        //обработка закидывания  файла
         fileTilePane.setOnDragOver(event -> {
             if (event.getDragboard().hasFiles()) {
                 event.acceptTransferModes(TransferMode.ANY);
@@ -128,26 +129,18 @@ public class New_Task_Controller {
             }
         }
         Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, true);
-        Main_Stage_Executor_Controller a=new Main_Stage_Executor_Controller();
-        a.refreshTable();
-        Main_Stage_Manager_Controller b = new Main_Stage_Manager_Controller();
-        b.refreshTable();
         Stage close = (Stage) saveButton.getScene().getWindow();
         close.close();
     }
 
 
     @FXML
-    public void cancel(MouseEvent mouseEvent) throws SQLException {
-        Main_Stage_Executor_Controller a=new Main_Stage_Executor_Controller();
-        a.refreshTable();
-        Main_Stage_Manager_Controller b = new Main_Stage_Manager_Controller();
-        b.refreshTable();
+    public void cancel(MouseEvent mouseEvent) throws SQLException, IOException {
         Stage close = (Stage) cancelLink.getScene().getWindow();
         close.close();
     }
 
-    public void draft(MouseEvent mouseEvent) throws SQLException {
+    public void draft(MouseEvent mouseEvent) throws SQLException, IOException {
         if (deadlineDatePicker.getValue() != null) {
             deadline = Date.valueOf(deadlineDatePicker.getValue());
         }
@@ -156,16 +149,18 @@ public class New_Task_Controller {
         }
 
         for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
-            if (executorIdBox.getValue().equals(Service_User_DB.getAllUsers().get(i - 1).getUserName()))
+            if (executorIdBox.getValue() != null){
+                    //executorIdBox.getValue().equals(Service_User_DB.getAllUsers().get(i - 1).getUserName())){
                 executorId = Service_User_DB.getAllUsers().get(i - 1).getUserId();
+        }else{
+                executorId = 0;
+            }
+
         }
+        creatorId = Current_User.getUserId();
 
         Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, false);
         //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
-        Main_Stage_Executor_Controller a=new Main_Stage_Executor_Controller();
-        a.refreshTable();
-        Main_Stage_Manager_Controller b = new Main_Stage_Manager_Controller();
-        b.refreshTable();
         Stage close = (Stage) laterButton.getScene().getWindow();
         close.close();
     }

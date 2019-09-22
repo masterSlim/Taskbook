@@ -38,4 +38,20 @@ class Service_User_DB {
         Service_DB.getConnection().close();
         return allUsers;
     }
+    static void setUser(String userName) throws SQLException {
+        PreparedStatement getUser = Service_DB.getConnection().prepareStatement("SELECT * FROM users WHERE user_name = ?;");
+        getUser.setString(1, userName);
+        ResultSet rsGetUser = getUser.executeQuery();
+        while (rsGetUser.next()) {
+            Current_User.setUserId(rsGetUser.getInt("idUser"));
+            Current_User.setUserName(rsGetUser.getString("user_name"));
+            Current_User.setUserpick(rsGetUser.getString("userpic"));
+            Current_User.setGender(rsGetUser.getBoolean("gender"));
+            Current_User.setPosition(rsGetUser.getString("position"));
+            Current_User.setPhone(rsGetUser.getString("phone"));
+            Current_User.setEmail(rsGetUser.getString("e-mail"));
+            Current_User.setDirectory(rsGetUser.getString("directory"));
+        }
+        Service_DB.getConnection().close();
+    }
 }

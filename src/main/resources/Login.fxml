@@ -1,50 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="600" maxWidth="400" minHeight="600" minWidth="400" prefHeight="600.0" prefWidth="400.0"
-            stylesheets="@view/Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Login_Controller">
+
+<AnchorPane id="stage" maxHeight="600" maxWidth="400" minHeight="600" minWidth="400" prefHeight="600.0" prefWidth="400.0" stylesheets="@view/Style.css" styleClass="stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login_Controller">
     <children>
-        <ImageView fitHeight="600.0" fitWidth="400.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="0.0">
-            <image>
-                <Image url="@images/galaxy.jpg"/>
-            </image>
-            <viewport>
-                <Rectangle2D height="1200.0" width="800.0"/>
-            </viewport>
-        </ImageView>
-        <TextField fx:id="fldLogin" layoutX="100.0" layoutY="213.0" prefHeight="45.0" prefWidth="200.0"
-                   promptText="Логин">
+        <TextField fx:id="fldLogin" layoutX="100.0" layoutY="213.0" prefHeight="45.0" prefWidth="200.0" promptText="Логин">
             <font>
-                <Font name="Open Sans Semibold" size="18.0"/>
+                <Font name="Open Sans Semibold" size="18.0" />
             </font>
         </TextField>
-        <PasswordField fx:id="fldPassword" layoutX="100.0" layoutY="300.0" prefHeight="45.0" prefWidth="200.0"
-                       promptText="Пароль">
+        <PasswordField fx:id="fldPassword" layoutX="100.0" layoutY="300.0" prefHeight="45.0" prefWidth="200.0" promptText="Пароль">
             <font>
-                <Font name="Open Sans Semibold" size="18.0"/>
+                <Font name="Open Sans Semibold" size="18.0" />
             </font>
         </PasswordField>
-        <Button fx:id="btnLogin" cacheShape="false" centerShape="false" graphicTextGap="1.0" layoutX="150.0"
-                layoutY="427.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="100.0"
-                scaleShape="false" styleClass="button" text="Войти" AnchorPane.bottomAnchor="125.0">
+        <Button fx:id="btnLogin" cacheShape="false" centerShape="false" graphicTextGap="1.0" layoutX="150.0" layoutY="427.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="100.0" scaleShape="false" styleClass="button" text="Войти" AnchorPane.bottomAnchor="125.0">
         </Button>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="101.0" prefHeight="60.0"
-               prefWidth="200.0" styleClass="h1" text="Войдите"
-               textAlignment="CENTER">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="101.0" prefHeight="60.0" prefWidth="200.0" styleClass="h1" text="Войдите" textAlignment="CENTER">
         </Label>
-        <Label fx:id="connectionStatus" alignment="CENTER" layoutX="184.0" layoutY="531.0" text="null"
-               textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="49.0"
-               AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+        <Label fx:id="connectionStatus" alignment="CENTER" layoutX="184.0" layoutY="531.0" text="null" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
             <font>
-                <Font name="Open Sans" size="14.0"/>
+                <Font name="Open Sans" size="14.0" />
             </font>
         </Label>
     </children>

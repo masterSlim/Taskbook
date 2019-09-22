@@ -26,7 +26,8 @@ public class Login_Controller {
         stageMain.close();
     }
 
-    private void connection(){
+    private void connection() {
+        //пишет в нижней части окна есть ли соединение с сервером
         try {
             boolean connect = Service_DB.testConnection();
             if (connect) {
@@ -37,27 +38,23 @@ public class Login_Controller {
         }
     }
 
-    public void initialize() throws Exception {
+    public void initialize() {
+        //проверка соединения с сервером, и сообщениние об этом пользователю
         connection();
     }
 
     @FXML
     private void login() throws Exception {
-        //метод, вызываемый по нажатию кнопки "Войти". Сейчас сравнивает правильность введённого логина и пароля с установленными непосредственно в методе
-        //String rightLogin = "1";
-        //String rightPassword = "1";
-        //сравнивается введёное в fldLogin с локальной переменной rghtLogin
+        //по нажатию на кнопку "Войти" сравнивается введёное в fldLogin с логином и паролем в базе данных
         boolean login = Service_DB.tryLogin(fldLogin.getText(), fldPassword.getText());
-        // CurrentUser currentUser = new CurrentUser();
         if (login) {
             //если всё введено правильно, в currentUser передаётся имя пользователя из введённого в поле fldLogin
             //из базы данных получаем userId по переданному ранее userName и передаём его в CurrentUser
             //управление передаётся другому контроллеру, указанному в Main_Stage_Executor.fxml
-            Current_User.setUserName(fldLogin.getText());
-            Service_User_DB.setUserId(Current_User.getUserName());
-            if (Service_User_DB.getUserPosition(Current_User.getUserId()).equals("Руководитель")) {
+            Service_User_DB.setUser(fldLogin.getText());
+            if (Current_User.getPosition().equals("Руководитель")) {
                 /* если авторизовавшийся пользователь - руководитель, то открывается окно
-                с редактированием задач Main_Stage_Manager*/
+                со списком задач Main_Stage_Manager_Controller*/
                 Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage_Manager.fxml")));
                 stageMain.setScene(mainScene);
                 fldPassword.clear();
@@ -66,12 +63,12 @@ public class Login_Controller {
                 Main.login.close();
                 //открывается Main Stage
                 stageMain.show();
-            }
-            else {
+            } else {
                   /* если авторизовавшийся пользователь - не руководитель, то открывается окно
-                с редактированием задач Main_Stage_Manager*/
+                со списком задач Main_Stage_Executor_Controller*/
                 Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage_Executor.fxml")));
                 stageMain.setScene(mainScene);
+                //поля очищаются, чтобы при повторном входе в сессии приходилось их заполнять заново
                 fldPassword.clear();
                 fldLogin.clear();
                 //окно ввода логина и пароля закрывается
@@ -80,7 +77,7 @@ public class Login_Controller {
                 stageMain.show();
             }
         } else {
-            //если хотя-бы одно из полей введено неправильно срабатывает else, которое выводит в консоль сообщение
+            //если хотя-бы одно из полей введено неправильно срабатывает else, которое выводит в консоль сообщение и очищает поля
             fldLogin.clear();
             fldPassword.clear();
             System.out.println("Wrong Login/Password");

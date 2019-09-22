@@ -20,7 +20,6 @@ class Service_Task_DB {
         saveTasks.setBoolean(9, isactive);
         try {
             saveTasks.executeUpdate();
-            System.out.println("Success");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -65,6 +64,7 @@ class Service_Task_DB {
             System.out.println("Exception in getTaskLite " + e);
         }
         Service_DB.getConnection().close();
+
         return null;
     }
 }

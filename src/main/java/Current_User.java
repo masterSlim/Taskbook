@@ -5,8 +5,18 @@ class Current_User {
     private static String userpick;
     private static boolean gender;
     private static String position;
-    private static int phone;
+    private static String phone;
     private static String email;
+
+    public static String getDirectory() {
+        return directory;
+    }
+
+    public static void setDirectory(String directory) {
+        Current_User.directory = directory;
+    }
+
+    private static String directory;
 
     public static int getUserId() {
         return userId;
@@ -56,11 +66,11 @@ class Current_User {
         Current_User.position = position;
     }
 
-    public  int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public  void setPhone(int phone) {
+    public  static void setPhone(String phone) {
         Current_User.phone = phone;
     }
 
@@ -68,7 +78,7 @@ class Current_User {
         return email;
     }
 
-    public  void setEmail(String email) {
+    public static void setEmail(String email) {
         Current_User.email = email;
     }
 }
