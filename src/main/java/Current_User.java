@@ -7,6 +7,7 @@ class Current_User {
     private static String position;
     private static String phone;
     private static String email;
+    private static String directory;
 
     public static String getDirectory() {
         return directory;
@@ -15,8 +16,6 @@ class Current_User {
     public static void setDirectory(String directory) {
         Current_User.directory = directory;
     }
-
-    private static String directory;
 
     public static int getUserId() {
         return userId;
@@ -66,15 +65,15 @@ class Current_User {
         Current_User.position = position;
     }
 
-    public String getPhone() {
+    public static String getPhone() {
         return phone;
     }
 
-    public  static void setPhone(String phone) {
+    public static void setPhone(String phone) {
         Current_User.phone = phone;
     }
 
-    public  String getEmail() {
+    public static String getEmail() {
         return email;
     }
 

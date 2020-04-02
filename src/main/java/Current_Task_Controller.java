@@ -1,12 +1,18 @@
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +20,8 @@ import java.sql.SQLException;
 
 public class Current_Task_Controller {
     static int selected;
+@FXML
+    private HBox hboxExecutors;
     @FXML
     private Label taskTitle;
     @FXML
@@ -27,7 +35,8 @@ public class Current_Task_Controller {
     @FXML
     private Hyperlink deleteTask;
 
-    public void initialize() throws SQLException {
+
+public void initialize() throws SQLException {
         PreparedStatement currentTaskPs = Service_DB.getConnection().prepareStatement("SELECT * FROM tasks where task_id =?;");
         currentTaskPs.setInt(1, selected);
         ResultSet currentTaskRs = currentTaskPs.executeQuery();
@@ -40,21 +49,26 @@ public class Current_Task_Controller {
                 priorityImageView.setImage(new Image("/icons/priority_high.png"));
                 taskTitle.setTextFill(Color.RED);
             }
-            if (currentTaskRs.getBoolean("is_closed")){
-                closeTask.setDisable(true);
-                closeTask.setText("Задача закрыта");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            Service_DB.getConnection().close();
+        //оборажаются исполнители для задачи
+            User_Name user = new User_Name();
+            user.setText(Service_User_DB.getUserName(currentTaskRs.getInt("executor_id")));
+            hboxExecutors.getChildren().add(user);
+
+        if (currentTaskRs.getBoolean("is_closed")) {
+            closeTask.setDisable(true);
+            closeTask.setText("Задача закрыта");
         }
-    }
+
+    }catch (Exception e){
+            System.out.println(e);
+        }
+
+}
 
     public void closeTask(MouseEvent mouseEvent) throws SQLException {
         PreparedStatement currentTaskPs = Service_DB.getConnection().prepareStatement("UPDATE tasks SET is_active=?, is_closed = ? WHERE task_id=?");
         currentTaskPs.setBoolean(1, false);
-        currentTaskPs.setBoolean(2,true);
+        currentTaskPs.setBoolean(2, true);
         currentTaskPs.setInt(3, selected);
         currentTaskPs.executeUpdate();
         closeTask.setDisable(true);
@@ -67,5 +81,8 @@ public class Current_Task_Controller {
         currentTaskPs.executeUpdate();
         Main_Stage_Controller.stageNewTask.close();
 
+    }
+
+    public void editTask(MouseEvent mouseEvent) {
     }
 }

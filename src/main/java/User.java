@@ -1,12 +1,21 @@
-abstract class User {
+class User {
     private String userName;
     private int userId;
     private String password;
     private String userpick;
     private  boolean gender;
     private  String position;
-    private  int phone;
+    private  long phone;
     private  String email;
+    private static String directory;
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        User.directory = directory;
+    }
 
     public int getUserId() {
         return userId;
@@ -56,11 +65,11 @@ abstract class User {
         this.position = position;
     }
 
-    public  int getPhone() {
+    public  long getPhone() {
         return phone;
     }
 
-    public  void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

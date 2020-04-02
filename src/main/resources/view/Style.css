@@ -1,51 +1,87 @@
+.root{
+stageColor: #171717;
+areaColor: #5C5C5C;
+textColor: white;
+borderColor: #A3A3A3;
+-fx-background-color: stageColor;
+}
+.stage{
+stageColor: #171717;
+areaColor: #5C5C5C;
+textColor: white;
+borderColor: #A3A3A3;
+-fx-background-color: stageColor;
+}
 .text{
 -fx-font-family: Open Sans;
 }
 .h1{
 -fx-font-family: Open Sans;
--fx-text-fill: WHITE;
+-fx-text-fill: textColor;
 -fx-font-size: 45px;
 -fx-font-weight: 800;
 }
 .h2{
--fx-text-fill: WHITE;
+-fx-text-fill: textColor;
 -fx-font-size: 18px;
 -fx-font-weight: 600;
 }
 .body{
--fx-fill: WHITE;
+-fx-fill: textColor;
 -fx-font-family: Open Sans;
--fx-text-fill: WHITE;
+-fx-text-fill: textColor;
 -fx-font-size: 16px;
 }
 .hyperlink{
 -fx-font-family: Open Sans;
--fx-text-fill: WHITE;
+-fx-text-fill: textColor;
 -fx-font-size: 16px;
 }
+
 .button{
 -fx-font-family: Open Sans;
+-fx-text-fill: stageColor;
 -fx-font-size: 18px;
--fx-font-weight: 400;
+-fx-font-weight: 700;
+-fx-background-color: #e0e0e0;
 }
 .imageButton{
 -fx-cursor: hand;
 }
 .bordered_area{
--fx-border-color: #A3A3A3;
+-fx-background-radius: 5px, 5px;
+-fx-border-color: borderColor;
 -fx-border-width: 1;
 -fx-border-style: dashed;
--fx-background-color: #5C5C5C;
+-fx-background-color: areaColor;
 }
 .area{
+textColor: white;
 -fx-effect: null;
--fx-prompt-text-fill: white;
+-fx-border-radius: 0px;
+-fx-background-radius: 5px, 5px;
+-fx-background-insets: 0px, 0px;
+-fx-background-color: #5C5C5C, transparent;
+-fx-prompt-text-fill: textColor;
 -fx-font-family: Open Sans;
--fx-fill: WHITE;
+-fx-fill: textColor;
 -fx-font-size: 16px;
--fx-control-inner-background: #5C5C5C;
+-fx-border-top-color: transparent;
+-fx-control-inner-background: areaColor;
 }
-.stage{
--fx-background-color: #171717;
+.area .content{
+-fx-background-radius: 0;
+}
+
+.table-view .column-header{
+    -fx-background-color: transparent;
+    -fx-fill: textColor;
+    }
+.table-view{
+-fx-table-cell-border-color: transparent;
+-fx-table-header-border-color: transparent;
+-fx-table-header-color: transparent;
+-fx-control-inner-background: areaColor;
+-fx-border-color: transparent transparent transparent transparent;
 }
 

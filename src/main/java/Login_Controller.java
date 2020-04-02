@@ -51,7 +51,7 @@ public class Login_Controller {
             //если всё введено правильно, в currentUser передаётся имя пользователя из введённого в поле fldLogin
             //из базы данных получаем userId по переданному ранее userName и передаём его в CurrentUser
             //управление передаётся другому контроллеру, указанному в Main_Stage_Executor.fxml
-            Service_User_DB.setUser(fldLogin.getText());
+            Service_User_DB.setCurrentUser(fldLogin.getText());
             if (Current_User.getPosition().equals("Руководитель")) {
                 /* если авторизовавшийся пользователь - руководитель, то открывается окно
                 со списком задач Main_Stage_Manager_Controller*/

@@ -11,15 +11,9 @@
 
 <AnchorPane id="stage" maxHeight="600" maxWidth="400" minHeight="600" minWidth="400" prefHeight="600.0" prefWidth="400.0" stylesheets="@view/Style.css" styleClass="stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login_Controller">
     <children>
-        <TextField fx:id="fldLogin" layoutX="100.0" layoutY="213.0" prefHeight="45.0" prefWidth="200.0" promptText="Логин">
-            <font>
-                <Font name="Open Sans Semibold" size="18.0" />
-            </font>
+        <TextField fx:id="fldLogin" layoutX="100.0" layoutY="213.0" prefHeight="45.0" prefWidth="200.0" promptText="Логин" styleClass="area, h2">
         </TextField>
-        <PasswordField fx:id="fldPassword" layoutX="100.0" layoutY="300.0" prefHeight="45.0" prefWidth="200.0" promptText="Пароль">
-            <font>
-                <Font name="Open Sans Semibold" size="18.0" />
-            </font>
+        <PasswordField fx:id="fldPassword" layoutX="100.0" layoutY="300.0" prefHeight="45.0" prefWidth="200.0" promptText="Пароль" styleClass="area, h2">
         </PasswordField>
         <Button fx:id="btnLogin" cacheShape="false" centerShape="false" graphicTextGap="1.0" layoutX="150.0" layoutY="427.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="100.0" scaleShape="false" styleClass="button" text="Войти" AnchorPane.bottomAnchor="125.0">
         </Button>

@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" fx:id="fileReview" prefWidth="90.0" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="File_Review">
-    <children>
-        <ImageView fx:id="fileIcon" pickOnBounds="true" preserveRatio="true">
-            <VBox.margin>
-                <Insets bottom="10.0"/>
-            </VBox.margin>
-        </ImageView>
-        <Hyperlink fx:id="fileName" prefWidth="90.0" text="Имя файла в виде ссылки"/>
-    </children>
-</VBox>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root styleClass="area" stylesheets="@view/Style.css" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox fx:id="fileReview" alignment="CENTER" prefWidth="90.0">
+          <children>
+            <HBox>
+               <children>
+                  <Pane prefWidth="20.0" />
+                    <ImageView fx:id="fileIcon" fitHeight="50.0" pickOnBounds="true" preserveRatio="true">
+                        <VBox.margin>
+                            <Insets bottom="10.0" />
+                        </VBox.margin>
+                    </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/delete.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+              <Hyperlink fx:id="fileName" alignment="CENTER" contentDisplay="CENTER" prefWidth="90.0" styleClass="h2" text="Имя файла в виде ссылки" />
+          </children>
+      </VBox>
+   </children>
+</fx:root>

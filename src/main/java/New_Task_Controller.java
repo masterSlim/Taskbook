@@ -24,6 +24,7 @@ import java.util.List;
 // класс является контроллером для NewTask.fxml
 // создаю экземпляр класса Task
 public class New_Task_Controller {
+    private int taskId;
     @FXML
     private byte priority = (byte) 0;
     private int creatorId;
@@ -77,7 +78,14 @@ public class New_Task_Controller {
             for (int i = 1; i <= files.size(); i++) {
                 String[] temp = {files.get(i - 1).getName(), files.get(i - 1).getPath()};
                 filesPaths.add(temp);
-                fileTilePane.getChildren().add(new File_Review().fileReview(files.get(i - 1)));
+                File_Review fileReview = null;
+                try {
+                    fileReview = new File_Review();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                fileReview.setFile(files.get(i-1).getName());
+                fileTilePane.getChildren().add(fileReview);
             }
             files.clear();
             dragEvent.consume();
@@ -163,5 +171,8 @@ public class New_Task_Controller {
         //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
         Stage close = (Stage) laterButton.getScene().getWindow();
         close.close();
+    }
+    public void setTaskId(int taskId){
+        this.taskId = taskId;
     }
 }
