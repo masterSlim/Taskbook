@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="1024.0" prefWidth="1280.0" stylesheets="@view/Style.css" styleClass="stage" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Current_Task_Controller">
+<AnchorPane prefHeight="1024.0" prefWidth="1280.0" stylesheets="@../view/Style.css" styleClass="stage" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Current_Task_Controller">
     <children>
         <VBox prefHeight="1024.0" prefWidth="640.0">
             <children>

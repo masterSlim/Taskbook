@@ -1,3 +1,5 @@
+package controllers;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,6 +10,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
+import models.Current_User;
+import models.File_Review;
+import services.Service_Task_DB;
+import services.Service_User_DB;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // класс является контроллером для NewTask.fxml
-// создаю экземпляр класса Task
+// создаю экземпляр класса models.Task
 public class New_Task_Controller {
     private int taskId;
     @FXML
@@ -158,7 +164,7 @@ public class New_Task_Controller {
 
         for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
             if (executorIdBox.getValue() != null){
-                    //executorIdBox.getValue().equals(Service_User_DB.getAllUsers().get(i - 1).getUserName())){
+                    //executorIdBox.getValue().equals(services.Service_User_DB.getAllUsers().get(i - 1).getUserName())){
                 executorId = Service_User_DB.getAllUsers().get(i - 1).getUserId();
         }else{
                 executorId = 0;

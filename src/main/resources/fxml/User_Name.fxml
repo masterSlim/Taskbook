@@ -11,7 +11,7 @@
 
 <fx:root type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="labelUserName" stylesheets="@view/Style.css" text="Имя исполнителя" textFill="WHITE" onMouseClicked="#userInfo">
+      <Label fx:id="labelUserName" stylesheets="@../view/Style.css" text="Имя исполнителя" textFill="WHITE" onMouseClicked="#userInfo">
          <styleClass>
             <String fx:value="h2" />
             <String fx:value="area" />

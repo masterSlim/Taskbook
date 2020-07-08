@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" styleClass="stage" stylesheets="@view/Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main_Stage_Controller">
+<AnchorPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" styleClass="stage" stylesheets="@../view/Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Main_Stage_Controller">
     <children>
         <VBox layoutX="9.0" layoutY="1.0" prefHeight="478.0" prefWidth="720.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -35,7 +35,7 @@
                 </Label>
                 <ImageView fx:id="logOutId" fitHeight="17.0" fitWidth="16.0" layoutY="24.0" onMouseClicked="#logOut" pickOnBounds="true" preserveRatio="true" styleClass="imageButton">
                     <image>
-                        <Image url="@icons/logout.png" />
+                        <Image url="@../icons/logout.png" />
                     </image>
                     <viewport>
                         <Rectangle2D />
@@ -43,12 +43,12 @@
                 </ImageView>
                 <ImageView fx:id="refreshButton" fitHeight="40.0" fitWidth="40.0" layoutX="590.0" layoutY="13.0" onMouseClicked="#refreshTable" pickOnBounds="true" preserveRatio="true" smooth="true" styleClass="imageButton">
                     <image>
-                        <Image url="@icons/refresh.png" />
+                        <Image url="@../icons/refresh.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="660.0" layoutY="10.0" onMouseClicked="#newTask" pickOnBounds="true" preserveRatio="true" smooth="true" styleClass="imageButton">
                     <image>
-                        <Image url="@icons/add.png" />
+                        <Image url="@../icons/add.png" />
                     </image>
                 </ImageView>
             </children>

@@ -8,25 +8,28 @@ import java.io.IOException;
 
 public class Main extends Application {
     static Stage login;
-
+    FXMLLoader loader;
+    Parent root;
+    Scene scene;
     public static void main(String[] args) {
-        //этот класс обязателен, и обязательно с вызовом метода launch(), именно эта конструкция запускает приложение
+        // вызов унаследованного от Application метода launch() запускает JavaFX приложение
         launch();
     }
 
-    //приложение на JavaFX начинается с класса Main, наследующего класс Application от JavaFX
     @Override
-    public void start(Stage stageLogin) throws IOException {
+    public void start(Stage stageLogin){
         //при запуске приложения через главный класс Main открывается окно входа Login.fxml и управление передаётся на его контроллер
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Login.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
+        loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e){
+            System.err.println("Невозможно загрузить файл Login.fxml \n" + e.getMessage());
+            System.exit(-1);
+        }
+        scene = new Scene(root);
         login = stageLogin;
-        login.setTitle("Новая задача");
         login.setResizable(false);
-        //stageLogin.setMaxHeight(600);
         login.centerOnScreen();
-        //stageLogin.setMaxWidth(800);
         login.setScene(scene);
         login.show();
     }

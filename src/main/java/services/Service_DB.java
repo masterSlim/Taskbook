@@ -1,13 +1,15 @@
+package services;
+
 import java.sql.*;
 
-class Service_DB {
+public class Service_DB {
     private static String serverLogin = "root";
-    private static String serverPassword = "root";
+    private static String serverPassword = "WG6Qkg59";
     private static String connectionUrl = "jdbc:mysql://127.0.0.1:3306/Taskbook? serverTimezone=UTC";
 
     //private static Connection connection = null;
 
-    static boolean testConnection() throws SQLException {
+    public static boolean testConnection() throws SQLException {
         //метод устанавливающий соединение с сервером базы данных и возвращающий true при подключении
         // и false при неудаче
         Connection testConnection = getConnection();

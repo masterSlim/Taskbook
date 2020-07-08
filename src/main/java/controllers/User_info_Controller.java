@@ -1,3 +1,6 @@
+package controllers;
+
+import controllers.Current_Task_Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,9 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import models.Current_User;
+import models.Task_Lite;
+import models.User;
+import services.Service_Task_DB;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -50,7 +56,7 @@ public class User_info_Controller {
         columnDeadline.setCellValueFactory(new PropertyValueFactory<>("deadline"));
         tableTasks.getItems().clear();
         if (Current_User.getPosition().equals("Руководитель")) {
-            ObservableList<Task_Lite> tasksCurrentUser = FXCollections.observableArrayList(Service_Task_DB.getTasksMngrLite(Current_User.getUserId()));
+            ObservableList<Task_Lite> tasksCurrentUser = Service_Task_DB.getTasksMngrLite(Current_User.getUserId());
             tableTasks.getItems().clear();
             tableTasks.setItems(tasksCurrentUser);
         } else {
@@ -67,12 +73,12 @@ public class User_info_Controller {
             Current_Task_Controller.selected = tableTasks.getSelectionModel().getSelectedItem().getTaskId();
             if (Current_User.getPosition().equals("Руководитель")) {
                 Stage stageNewTask = new Stage();
-                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Current_Task_Manager.fxml"))));
+                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("/fxml/Current_Task_Manager.fxml"))));
                 stageNewTask.setScene(openTask);
                 stageNewTask.show();
             } else {
                 Stage stageNewTask = new Stage();
-                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Current_Task_Executor.fxml"))));
+                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("/fxml/Current_Task_Executor.fxml"))));
                 stageNewTask.setScene(openTask);
                 stageNewTask.show();
             }

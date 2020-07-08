@@ -1,3 +1,5 @@
+package controllers;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import models.Current_User;
+import models.Task_Lite;
+import services.Service_Task_DB;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -28,7 +32,6 @@ public class Main_Stage_Controller {
     public TableColumn<Task_Lite, String> columnTaskTitle;
     @FXML
     public TableColumn<Task_Lite, Date> columnDeadline;
-    //int userId;
     @FXML
     private Label user;
     @FXML
@@ -58,12 +61,13 @@ public class Main_Stage_Controller {
     @FXML
     public void logOut() {
         Login_Controller.close();
-        Main.login.show();
+        //TODO: ???
+        //this.show();
     }
 
     @FXML
     public void initialize() throws SQLException{
-        //устанавливается пользователь введённый и переданный Login_Controller
+        //устанавливается пользователь введённый и переданный controllers.Login_Controller
         user.setText(Current_User.getUserName());
         columnId.setCellValueFactory(new PropertyValueFactory<>("taskId"));
         columnTaskTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -77,11 +81,11 @@ public class Main_Stage_Controller {
             //если выбрана не пустая строка, то в соответствии с position пользователя открывается окно задачи
             Current_Task_Controller.selected = tableTaskLite.getSelectionModel().getSelectedItem().getTaskId();
             if (Current_User.getPosition().equals("Руководитель")) {
-                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Current_Task_Manager.fxml"))));
+                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("/fxml/Current_Task_Manager.fxml"))));
                 stageNewTask.setScene(openTask);
                 stageNewTask.show();
             } else {
-                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Current_Task_Executor.fxml"))));
+                Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("/fxml/Current_Task_Executor.fxml"))));
                 stageNewTask.setScene(openTask);
                 stageNewTask.show();
             }
@@ -97,9 +101,9 @@ public class Main_Stage_Controller {
         //controller.setTaskId(tableTaskLite.getSelectionModel().getSelectedItem().getTaskId());
         FXMLLoader loader;
         if(Current_User.getPosition().equals("Руководитель")) {
-             loader = new FXMLLoader(getClass().getResource("New_Task_Manager.fxml"));
+             loader = new FXMLLoader(getClass().getResource("/fxml/New_Task_Manager.fxml"));
         } else {
-             loader = new FXMLLoader(getClass().getResource("New_Task_Executor.fxml"));
+             loader = new FXMLLoader(getClass().getResource("/fxml/New_Task_Executor.fxml"));
         }
         loader.setController(controller);
         Parent root = loader.load();
@@ -114,11 +118,11 @@ public class Main_Stage_Controller {
 
     public void settings(MouseEvent mouseEvent) throws IOException {
         if (Current_User.getPosition().equals("Руководитель")) {
-            Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("Settings_Manager.fxml"))));
+            Scene openTask = new Scene((FXMLLoader.load(getClass().getResource("/fxml/Settings_Manager.fxml"))));
             stageNewTask.setScene(openTask);
             stageNewTask.show();
         } else {
-            Scene settings = new Scene((FXMLLoader.load(getClass().getResource("Settings_Executor.fxml"))));
+            Scene settings = new Scene((FXMLLoader.load(getClass().getResource("/fxml/Settings_Executor.fxml"))));
             stageNewTask.setScene(settings);
             stageNewTask.show();
         }

@@ -39,7 +39,7 @@
                     <center>
                         <ImageView fx:id="priorityButton" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#changePriority" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                             <image>
-                                <Image url="@icons/priority_normal.png" />
+                                <Image url="@../icons/priority_normal.png" />
                             </image>
                             <BorderPane.margin>
                                 <Insets top="20.0" />

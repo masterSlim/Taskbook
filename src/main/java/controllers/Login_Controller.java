@@ -1,3 +1,5 @@
+package controllers;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +9,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Current_User;
+import services.Service_DB;
+import services.Service_User_DB;
 
 public class Login_Controller {
 
@@ -55,24 +60,24 @@ public class Login_Controller {
             if (Current_User.getPosition().equals("Руководитель")) {
                 /* если авторизовавшийся пользователь - руководитель, то открывается окно
                 со списком задач Main_Stage_Manager_Controller*/
-                Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage_Manager.fxml")));
+                Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/Main_Stage_Manager.fxml")));
                 stageMain.setScene(mainScene);
                 fldPassword.clear();
                 fldLogin.clear();
                 //окно ввода логина и пароля закрывается
-                Main.login.close();
+                close();
                 //открывается Main Stage
                 stageMain.show();
             } else {
                   /* если авторизовавшийся пользователь - не руководитель, то открывается окно
                 со списком задач Main_Stage_Executor_Controller*/
-                Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("Main_Stage_Executor.fxml")));
+                Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/Main_Stage_Executor.fxml")));
                 stageMain.setScene(mainScene);
                 //поля очищаются, чтобы при повторном входе в сессии приходилось их заполнять заново
                 fldPassword.clear();
                 fldLogin.clear();
                 //окно ввода логина и пароля закрывается
-                Main.login.close();
+                close();
                 //открывается Main Stage
                 stageMain.show();
             }

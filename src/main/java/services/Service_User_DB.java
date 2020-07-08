@@ -1,12 +1,17 @@
+package services;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Current_User;
+import models.User;
+import models.User_Lite;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class Service_User_DB {
-    static void getUserId(String userName) throws SQLException {
+public class Service_User_DB {
+    public static void getUserId(String userName) throws SQLException {
         PreparedStatement getUser = Service_DB.getConnection().prepareStatement("SELECT user_id FROM users WHERE user_name = ?;");
         getUser.setString(1, userName);
         ResultSet rsGetUser = getUser.executeQuery();
@@ -16,7 +21,7 @@ class Service_User_DB {
         Service_DB.getConnection().close();
     }
 
-    static String getUserPosition(int userId) throws SQLException {
+    public static String getUserPosition(int userId) throws SQLException {
         PreparedStatement getUserPosition = Service_DB.getConnection().prepareStatement("SELECT position FROM users WHERE user_id = ?;");
         getUserPosition.setInt(1, userId);
         ResultSet userPosition = getUserPosition.executeQuery();
@@ -25,7 +30,7 @@ class Service_User_DB {
         return userPosition.getString("position");
     }
 
-    static ObservableList<User> getAllUsers() throws SQLException {
+    public static ObservableList<User> getAllUsers() throws SQLException {
         ObservableList<User> allUsers = FXCollections.observableArrayList();
         PreparedStatement getAllUsersSt = Service_DB.getConnection().prepareStatement("SELECT user_name, user_id FROM users;");
         ResultSet getAllUsersRs = getAllUsersSt.executeQuery();
@@ -39,12 +44,12 @@ class Service_User_DB {
         return allUsers;
     }
 
-    static void setCurrentUser(String userName) throws SQLException {
+    public static void setCurrentUser(String userName) throws SQLException {
         PreparedStatement ps = Service_DB.getConnection().prepareStatement("SELECT * FROM users WHERE user_name = ?;");
         ps.setString(1, userName);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Current_User.setUserId(rs.getInt("user_id"));
+            Current_User.setUserId(rs.getInt("idUser"));
             Current_User.setUserName(rs.getString("user_name"));
             Current_User.setUserpick(rs.getString("userpic"));
             Current_User.setGender(rs.getBoolean("gender"));
@@ -62,7 +67,7 @@ class Service_User_DB {
         Service_DB.getConnection().close();
     }
 
-    static void executeUpdate(String sqlQuery) throws SQLException {
+    public static void executeUpdate(String sqlQuery) throws SQLException {
         System.out.println(sqlQuery);
         PreparedStatement executeUpdate = Service_DB.getConnection().prepareStatement(sqlQuery);
         executeUpdate.executeUpdate();

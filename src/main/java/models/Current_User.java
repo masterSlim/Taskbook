@@ -1,4 +1,6 @@
-class Current_User {
+package models;
+
+public class Current_User {
     private static String userName;
     private static int userId;
     private static String password;

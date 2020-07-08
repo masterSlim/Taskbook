@@ -1,3 +1,6 @@
+package models;
+
+import controllers.User_info_Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -5,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import services.Service_User_DB;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,7 +18,7 @@ public class User_Name extends Pane {
     private Label labelUserName;
 
     public User_Name() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("User_Name.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("models.User_Name.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         loader.load();

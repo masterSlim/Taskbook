@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Date;
 
 public class Task_Lite extends Task {

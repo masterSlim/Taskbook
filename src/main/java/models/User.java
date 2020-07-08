@@ -1,4 +1,6 @@
-class User {
+package models;
+
+public class User {
     private String userName;
     private int userId;
     private String password;

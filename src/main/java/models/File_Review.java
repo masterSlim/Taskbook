@@ -1,3 +1,5 @@
+package models;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -18,7 +20,7 @@ public class File_Review extends Pane {
     private ImageView fileIcon;
 
     public File_Review() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("File_Review.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("models.File_Review.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         loader.load();
@@ -118,6 +120,6 @@ public class File_Review extends Pane {
         //fileIcon.setImage(new Image("icons\\file types\\jpeg.png"));
         fileName1 = file.getName();
         icon = new Image("icons\\file types\\jpeg.png");
-        fileReview = FXMLLoader.load(getClass().getResource("File_Review.fxml"));
+        fileReview = FXMLLoader.load(getClass().getResource("models.File_Review.fxml"));
         return fileReview;*/
 

@@ -1,13 +1,16 @@
+package services;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Task_Lite;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class Service_Task_DB {
+public class Service_Task_DB {
 
-    static void saveTasks(byte priority, int creatorId, String title, String task, int executorId, java.sql.Date createDate, java.sql.Date startDate, java.sql.Date deadline, boolean isactive) throws SQLException {
+    public static void saveTasks(byte priority, int creatorId, String title, String task, int executorId, java.sql.Date createDate, java.sql.Date startDate, java.sql.Date deadline, boolean isactive) throws SQLException {
         PreparedStatement saveTasks = Service_DB.getConnection().prepareStatement("INSERT INTO tasks (priority, creator_id, title, task, executor_id, create_datetime, start_datetime, deadline, is_active) values (?, ?, ?, ?, ?, ?, ?, ?, ?);");
         saveTasks.setByte(1, priority);
         saveTasks.setInt(2, creatorId);
@@ -47,7 +50,7 @@ class Service_Task_DB {
         return null;
     }
 
-    static ObservableList<Task_Lite> getTasksMngrLite(int userId) throws SQLException {
+    public static ObservableList<Task_Lite> getTasksMngrLite(int userId) throws SQLException {
         try {
             PreparedStatement getTasksLite = Service_DB.getConnection().prepareStatement("SELECT task_id, title, deadline FROM tasks WHERE creator_id =?;");
             getTasksLite.setInt(1, userId);
