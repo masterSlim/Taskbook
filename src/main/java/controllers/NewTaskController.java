@@ -10,10 +10,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
-import models.Current_User;
-import models.File_Review;
-import services.Service_Task_DB;
-import services.Service_User_DB;
+import models.ActiveUser;
+import services.ServiceDBTask;
+import services.ServiceDBUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,12 +28,13 @@ import java.util.List;
 
 // класс является контроллером для NewTask.fxml
 // создаю экземпляр класса models.Task
-public class New_Task_Controller {
+public class NewTaskController {
+    private ActiveUser activeUser;
     private int taskId;
     @FXML
     private byte priority = (byte) 0;
-    private int creatorId;
-    private int executorId;
+    private long creatorId;
+    private long executorId;
     private Date createDate = java.sql.Date.valueOf(LocalDate.now());
     private Date startDate = java.sql.Date.valueOf(LocalDate.now());
     private Date deadline = java.sql.Date.valueOf(LocalDate.now());
@@ -61,15 +61,17 @@ public class New_Task_Controller {
     private Hyperlink cancelLink;
 
 
-    //метод преобразовывающий введённые в тектстовые поля данные в одну цельную задачу
+    public NewTaskController(ActiveUser activeUser) {
+        this.activeUser = activeUser;
+    }
 
     @FXML
     public void initialize() throws Exception {
         startDatePicker.setValue(LocalDate.now());
         deadlineDatePicker.setValue(LocalDate.now().plusDays(3));
         ObservableList<String> userNames = FXCollections.observableArrayList();
-        for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
-            userNames.add(Service_User_DB.getAllUsers().get(i - 1).getUserName());
+        for (int i = 1; i <= services.ServiceDBUser.getAllUsers().size(); i++) {
+            userNames.add(services.ServiceDBUser.getAllUsers().get(i - 1).getUserName());
         }
         executorIdBox.setItems(userNames);
         //обработка закидывания  файла
@@ -84,13 +86,13 @@ public class New_Task_Controller {
             for (int i = 1; i <= files.size(); i++) {
                 String[] temp = {files.get(i - 1).getName(), files.get(i - 1).getPath()};
                 filesPaths.add(temp);
-                File_Review fileReview = null;
+                FileReview fileReview = null;
                 try {
-                    fileReview = new File_Review();
+                    fileReview = new FileReview();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                fileReview.setFile(files.get(i-1).getName());
+                fileReview.setFile(files.get(i - 1).getName());
                 fileTilePane.getChildren().add(fileReview);
             }
             files.clear();
@@ -122,27 +124,27 @@ public class New_Task_Controller {
             startDate = Date.valueOf(startDatePicker.getValue());
         }
 
-        for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
+        for (int i = 1; i <= services.ServiceDBUser.getAllUsers().size(); i++) {
             //поиск и присваивание id исполнителя перебором по таблице users
             try {
-                if (executorIdBox.getValue().equals(Service_User_DB.getAllUsers().get(i - 1).getUserName())) {
-                    executorId = Service_User_DB.getAllUsers().get(i - 1).getUserId();
+                if (executorIdBox.getValue().equals(services.ServiceDBUser.getAllUsers().get(i - 1).getUserName())) {
+                    executorId = ServiceDBUser.getAllUsers().get(i - 1).getUserId();
                 }
             } catch (Exception e) {
                 executorId = 0;
             }
         }
-        creatorId = Current_User.getUserId();
+        creatorId = activeUser.getUserId();
         if (filesPaths != null) {
             //здесь происходит копирование файлов в папку пользователя, если они приложены к задаче
             for (int i = 1; i <= filesPaths.size(); i++) {
                 String newFileDirectory = "C:\\Users\\Mr\\Desktop\\destination\\" + filesPaths.get(i - 1)[0];
-                Path originalFilePath = Path.of(filesPaths.get(i - 1)[1]);
+                Path originalFilePath = Paths.get(filesPaths.get(i - 1)[1]);
                 Path newFilePath = Paths.get(newFileDirectory);
                 Files.copy(originalFilePath, newFilePath, StandardCopyOption.REPLACE_EXISTING);
             }
         }
-        Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, true);
+        ServiceDBTask.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, true);
         Stage close = (Stage) saveButton.getScene().getWindow();
         close.close();
     }
@@ -162,23 +164,24 @@ public class New_Task_Controller {
             startDate = Date.valueOf(startDatePicker.getValue());
         }
 
-        for (int i = 1; i <= Service_User_DB.getAllUsers().size(); i++) {
-            if (executorIdBox.getValue() != null){
-                    //executorIdBox.getValue().equals(services.Service_User_DB.getAllUsers().get(i - 1).getUserName())){
-                executorId = Service_User_DB.getAllUsers().get(i - 1).getUserId();
-        }else{
+        for (int i = 1; i <= services.ServiceDBUser.getAllUsers().size(); i++) {
+            if (executorIdBox.getValue() != null) {
+                //executorIdBox.getValue().equals(services.ServiceDBUser.getAllUsers().get(i - 1).getUserName())){
+                executorId = services.ServiceDBUser.getAllUsers().get(i - 1).getUserId();
+            } else {
                 executorId = 0;
             }
 
         }
-        creatorId = Current_User.getUserId();
 
-        Service_Task_DB.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, false);
+        creatorId = activeUser.getUserId();
+        ServiceDBTask.saveTasks(priority, creatorId, titleField.getText(), taskArea.getText(), executorId, createDate, startDate, deadline, false);
         //String.valueOf(LocalDateTime.now()), LocalDateTime.now(), LocalDateTime.now(), true);
         Stage close = (Stage) laterButton.getScene().getWindow();
         close.close();
     }
-    public void setTaskId(int taskId){
+
+    public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
 }

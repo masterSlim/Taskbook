@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<fx:root type="Pane" maxHeight="1024.0" maxWidth="1280.0" minHeight="1024.0" minWidth="1280.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="1024.0" prefWidth="1280.0" styleClass="stage" stylesheets="/view/Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="1024.0" maxWidth="1280.0" minHeight="1024.0" minWidth="1280.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="1024.0" prefWidth="1280.0" styleClass="stage" stylesheets="/view/Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox prefHeight="935.0" prefWidth="788.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -120,4 +120,4 @@
         <Hyperlink fx:id="cancelLink" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="14.0" layoutY="404.0" onMouseClicked="#cancel" styleClass="hyperlink" text="Отменить" textAlignment="RIGHT" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="14.0" />
         <Hyperlink fx:id="laterButton" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="485.0" layoutY="404.0" onMouseClicked="#draft" styleClass="hyperlink" text="Допишу потом..." textAlignment="RIGHT" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="14.0" />
     </children>
-</fx:root>
+</Pane>

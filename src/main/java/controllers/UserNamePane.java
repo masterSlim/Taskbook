@@ -1,6 +1,5 @@
-package models;
+package controllers;
 
-import controllers.User_info_Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,26 +7,33 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import services.Service_User_DB;
+import models.ActiveUser;
+import models.User;
+import services.ServiceDBUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class User_Name extends Pane {
+public class UserNamePane extends Pane {
+    private ActiveUser activeUser;
+    private User user;
     @FXML
     private Label labelUserName;
 
-    public User_Name() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("models.User_Name.fxml"));
+    public UserNamePane(ActiveUser activeUser, User user) throws IOException {
+        this.activeUser = activeUser;
+        this.user = user;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("controllers.UserNamePane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         loader.load();
+        labelUserName.setText(user.getUserName());
     }
 
     @FXML
     public void userInfo() throws IOException, SQLException {
-        User_info_Controller controller = new User_info_Controller();
-        controller.setUser(Service_User_DB.getUser(labelUserName.getText()));
+        UserInfoController controller = new UserInfoController(activeUser, user);
+        controller.setUser(ServiceDBUser.getUser(labelUserName.getText()));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("User_Info.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
@@ -39,10 +45,6 @@ public class User_Name extends Pane {
 
     public String getText() {
         return labelUserName.getText();
-    }
-
-    public void setText(String userName) {
-        labelUserName.setText(userName);
     }
 
 }

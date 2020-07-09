@@ -10,17 +10,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import models.User_Name;
-import services.Service_DB;
-import services.Service_User_DB;
+import models.ActiveUser;
+import models.User;
+import services.ServiceDB;
+import services.ServiceDBUser;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Current_Task_Controller {
+public class CurrentTaskController {
     static int selected;
-@FXML
+    private ActiveUser activeUser;
+    @FXML
     private HBox hboxExecutors;
     @FXML
     private Label taskTitle;
@@ -35,9 +37,13 @@ public class Current_Task_Controller {
     @FXML
     private Hyperlink deleteTask;
 
+    public CurrentTaskController(ActiveUser activeUser) {
+        this.activeUser = activeUser;
+    }
 
-public void initialize() throws SQLException {
-        PreparedStatement currentTaskPs = Service_DB.getConnection().prepareStatement("SELECT * FROM tasks where task_id =?;");
+
+    public void initialize() throws SQLException {
+        PreparedStatement currentTaskPs = ServiceDB.getConnection().prepareStatement("SELECT * FROM tasks where task_id =?;");
         currentTaskPs.setInt(1, selected);
         ResultSet currentTaskRs = currentTaskPs.executeQuery();
         currentTaskRs.next();
@@ -49,24 +55,24 @@ public void initialize() throws SQLException {
                 priorityImageView.setImage(new Image("/icons/priority_high.png"));
                 taskTitle.setTextFill(Color.RED);
             }
-        //оборажаются исполнители для задачи
-            User_Name user = new User_Name();
-            user.setText(Service_User_DB.getUserName(currentTaskRs.getInt("executor_id")));
-            hboxExecutors.getChildren().add(user);
+            //оборажаются исполнители для задачи
+            User user = ServiceDBUser.getUser(currentTaskRs.getInt("executor_id"));
+            UserNamePane userPane = new UserNamePane(activeUser, user);
+            hboxExecutors.getChildren().add(userPane);
 
-        if (currentTaskRs.getBoolean("is_closed")) {
-            closeTask.setDisable(true);
-            closeTask.setText("Задача закрыта");
-        }
+            if (currentTaskRs.getBoolean("is_closed")) {
+                closeTask.setDisable(true);
+                closeTask.setText("Задача закрыта");
+            }
 
-    }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
-}
+    }
 
     public void closeTask(MouseEvent mouseEvent) throws SQLException {
-        PreparedStatement currentTaskPs = Service_DB.getConnection().prepareStatement("UPDATE tasks SET is_active=?, is_closed = ? WHERE task_id=?");
+        PreparedStatement currentTaskPs = ServiceDB.getConnection().prepareStatement("UPDATE tasks SET is_active=?, is_closed = ? WHERE task_id=?");
         currentTaskPs.setBoolean(1, false);
         currentTaskPs.setBoolean(2, true);
         currentTaskPs.setInt(3, selected);
@@ -76,10 +82,10 @@ public void initialize() throws SQLException {
     }
 
     public void deleteTask(MouseEvent mouseEvent) throws SQLException {
-        PreparedStatement currentTaskPs = Service_DB.getConnection().prepareStatement("DELETE FROM tasks WHERE task_id=?");
+        PreparedStatement currentTaskPs = ServiceDB.getConnection().prepareStatement("DELETE FROM tasks WHERE task_id=?");
         currentTaskPs.setInt(1, selected);
         currentTaskPs.executeUpdate();
-        Main_Stage_Controller.stageNewTask.close();
+        MainStageController.stageNewTask.close();
 
     }
 

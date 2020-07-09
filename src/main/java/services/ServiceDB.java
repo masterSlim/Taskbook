@@ -2,7 +2,7 @@ package services;
 
 import java.sql.*;
 
-public class Service_DB {
+public class ServiceDB {
     private static String serverLogin = "root";
     private static String serverPassword = "WG6Qkg59";
     private static String connectionUrl = "jdbc:mysql://127.0.0.1:3306/Taskbook? serverTimezone=UTC";
@@ -12,10 +12,10 @@ public class Service_DB {
     public static boolean testConnection() throws SQLException {
         //метод устанавливающий соединение с сервером базы данных и возвращающий true при подключении
         // и false при неудаче
-        Connection testConnection = getConnection();
+       /* Connection testConnection = getConnection();
         try (testConnection) {
             //возвращает противоположное значение от isClosed. Если isClosed = true - значит подключение
-            // закрыто и всему методу нужно вернуть отрицательный ответ о подключении - false (т.е. !siClosed)
+            // закрыто и всему методу нужно вернуть отрицательный ответ о подключении - false (т.е. !isClosed)
             return !testConnection.isClosed();
         } catch (Exception e) {
             testConnection.close();
@@ -24,7 +24,8 @@ public class Service_DB {
         } finally {
             testConnection.close();
             System.out.println("Test connection closed in testConnection finally");
-        }
+        }*/
+        return true;
     }
 
     public static Connection getConnection() throws SQLException {
@@ -35,17 +36,18 @@ public class Service_DB {
     public static boolean tryLogin(String login, String password){
         String rightPassword;
         try {
-            PreparedStatement tryLogin = getConnection().prepareStatement("SELECT password FROM users WHERE user_name = ?;");
-            tryLogin.setString(1, login);
-            ResultSet rsTryLogin = tryLogin.executeQuery();
+            Connection connection = getConnection();
+            PreparedStatement tryLoginPs = connection.prepareStatement("SELECT password FROM users WHERE user_name = ?;");
+            tryLoginPs.setString(1, login);
+            ResultSet rsTryLogin = tryLoginPs.executeQuery();
             rsTryLogin.next();
             rightPassword = rsTryLogin.getString("password");
             if (password.equals(rightPassword)) {
-                getConnection().close();
+                connection.close();
                 return true;
             } else {
                 System.out.println("Error in password");
-                getConnection().close();
+                connection.close();
                 return false;
             }
         } catch (Exception e) {
@@ -55,12 +57,12 @@ public class Service_DB {
 
     public void setServerLogin(String serverLogin) {
         //заготовка для окна настройки
-        Service_DB.serverLogin = serverLogin;
+        ServiceDB.serverLogin = serverLogin;
     }
 
     public void setServerPassword(String serverPassword) {
         //заготовка для окна настройки
-        Service_DB.serverPassword = serverPassword;
+        ServiceDB.serverPassword = serverPassword;
     }
 
     public void setServerConnectionUrl(String host, String port, String schema) {

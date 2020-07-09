@@ -1,29 +1,28 @@
 package models;
 
 public class User {
-    private String userName;
-    private int userId;
-    private String password;
-    private String userpick;
-    private  boolean gender;
-    private  String position;
-    private  long phone;
-    private  String email;
-    private static String directory;
+    protected String directory;
+    protected String userName;
+    protected long userId;
+    protected String userPic;
+    protected POSITION position;
+    protected byte[] phone;
+    protected String email;
+    protected GENDER gender;
 
     public String getDirectory() {
         return directory;
     }
 
     public void setDirectory(String directory) {
-        User.directory = directory;
+        this.directory = directory;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -31,55 +30,58 @@ public class User {
         return userName;
     }
 
-    public  void setUserName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public  String getPassword() {
-        return password;
+    public String getUserPic() {
+        return userPic;
     }
 
-    public  void setPassword(String password) {
-        this.password = password;
+    public void setUserPic(String path) {
+        //TODO: сделать загрузку картинки из файла по пути аргумента
+        this.userPic = path;
     }
 
-    public  String getUserpick() {
-        return userpick;
-    }
-
-    public  void setUserpick(String userpick) {
-        this.userpick = userpick;
-    }
-
-    public  boolean isGender() {
+    public GENDER getGender() {
         return gender;
     }
 
-    public  void setGender(boolean gender) {
+    public void setGender(GENDER gender) {
         this.gender = gender;
     }
 
-    public  String getPosition() {
+    public POSITION getPosition() {
         return position;
     }
 
-    public  void setPosition(String position) {
+    public void setPosition(POSITION position) {
         this.position = position;
     }
 
-    public  long getPhone() {
+    public byte[] getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(byte[] phone) {
         this.phone = phone;
     }
 
-    public  String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public  void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public enum GENDER {
+        MALE,
+        FEMALE
+    }
+    public enum POSITION{
+        MANAGER,
+        EXECUTOR
     }
 }

@@ -1,3 +1,5 @@
+package controllers;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,12 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import models.Current_User;
-import services.Service_User_DB;
+import models.ActiveUser;
+import services.ServiceDBUser;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
-public class Settings_Executor {
+public class SettingsController {
+    ActiveUser activeUser;
     @FXML
     private Label labelUserName;
     @FXML
@@ -32,33 +36,39 @@ public class Settings_Executor {
     @FXML
     private Button save;
 
+    public SettingsController(ActiveUser activeUser) {
+        this.activeUser = activeUser;
+    }
+
     @FXML
     public void saveSettings(MouseEvent mouseEvent) throws SQLException {
         String directory = "";
         //сравнение и изменение директории
         System.out.println(areaDirectory.getText());
-        System.out.println(Current_User.getDirectory());
-        if((Current_User.getDirectory() == null) || !(Current_User.getDirectory().equals(areaDirectory.getText()))) {
-            Current_User.setDirectory(areaDirectory.getText());
+        System.out.println(activeUser.getDirectory());
+        if ((activeUser.getDirectory() == null) || !(activeUser.getDirectory().equals(areaDirectory.getText()))) {
+            activeUser.setDirectory(areaDirectory.getText());
             //для sql запроса нужно экранировать обратный слэш \
-            directory = "directory = " + "\"" + Current_User.getDirectory().replace("\\", "\\\\") +"\"" + " ";
+            directory = "directory = " + "\"" + activeUser.getDirectory().replace("\\", "\\\\") + "\"" + " ";
         }
-        Service_User_DB.executeUpdate("UPDATE users SET " + directory + "WHERE user_id = "+ Current_User.getUserId() + ";");
+        ServiceDBUser.executeUpdate("UPDATE users SET " + directory + "WHERE user_id = " + activeUser.getUserId() + ";");
         Stage close = (Stage) save.getScene().getWindow();
         close.close();
     }
+
     @FXML
     public void initialize() {
-        labelUserName.setText(Current_User.getUserName());
-        if(!Current_User.getUserpick().equals("null")){
-            userpic.setImage(new Image(Current_User.getUserpick()));
-        } else{
+        labelUserName.setText(activeUser.getUserName());
+        if (!activeUser.getUserPic().equals("null")) {
+            userpic.setImage(new Image(activeUser.getUserPic()));
+        } else {
             userpic.setImage(new Image("icons\\user.png"));
         }
-        System.out.println(Current_User.getDirectory());
-        labelPosition.setText(Current_User.getPosition());
-        areaDirectory.setPromptText(Current_User.getDirectory());
-        areaPhone.setText(Current_User.getPhone());
-        areaEmail.setText(Current_User.getEmail());
+        System.out.println(activeUser.getDirectory());
+        labelPosition.setText(activeUser.getPosition().name());
+        areaDirectory.setPromptText(activeUser.getDirectory());
+        //TODO: неправильно отображает телефон
+        areaPhone.setText(Arrays.toString(activeUser.getPhone()));
+        areaEmail.setText(activeUser.getEmail());
     }
 }

@@ -1,4 +1,4 @@
-package models;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,14 +13,14 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 
-public class File_Review extends Pane {
+public class FileReview extends Pane {
     @FXML
     private Hyperlink fileName;
     @FXML
     private ImageView fileIcon;
 
-    public File_Review() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("models.File_Review.fxml"));
+    public FileReview() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FileReview.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         loader.load();
@@ -120,6 +120,6 @@ public class File_Review extends Pane {
         //fileIcon.setImage(new Image("icons\\file types\\jpeg.png"));
         fileName1 = file.getName();
         icon = new Image("icons\\file types\\jpeg.png");
-        fileReview = FXMLLoader.load(getClass().getResource("models.File_Review.fxml"));
+        fileReview = FXMLLoader.load(getClass().getResource("controllers.FileReview.fxml"));
         return fileReview;*/
 

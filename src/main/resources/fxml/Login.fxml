@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="stage" maxHeight="600" maxWidth="400" minHeight="600" minWidth="400" prefHeight="600.0" prefWidth="400.0" stylesheets="@../view/Style.css" styleClass="stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Login_Controller">
+<AnchorPane id="stage" maxHeight="600" maxWidth="400" minHeight="600" minWidth="400" prefHeight="600.0" prefWidth="400.0" stylesheets="@../view/Style.css" styleClass="stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
     <children>
         <TextField fx:id="fldLogin" layoutX="100.0" layoutY="213.0" prefHeight="45.0" prefWidth="200.0" promptText="Логин" styleClass="area, h2">
         </TextField>

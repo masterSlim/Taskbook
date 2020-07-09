@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-abstract class Task {
+public class Task {
 
     private int taskId;
     private Byte priority;
@@ -14,6 +14,12 @@ abstract class Task {
     private String closeDateTime;
     private Date deadline;
     private Boolean active;
+
+    public Task(int taskId, String title, Date deadline) {
+        setTaskId(taskId);
+        setTitle(title);
+        setDeadline(deadline);
+    }
 
     public Byte getPriority() {
         return priority;
