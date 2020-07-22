@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="../css/Style.css" th:href="@{/css/Style.css}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>im title</title>
+</head>
+<body class="gradient-background">
+<div class="flex-column stage" align="center">
+    <h1 class="h1" align="center">Войдите</h1>
+    <form id="login" method="post">
+        <input class="area h3" type="text" name="name" placeholder="Имя пользователя">
+        <input class="area h3" type="password" name="password" placeholder="Пароль">
+    </form>
+        <button type="submit" form="login" class="button-attention" name="login-button">Войти</button>
+</div>
+<div align=center>
+    <a class="flex-row hyperlink" href="https://github.com/masterSlim/Taskbook">
+        <h3 class="h3 text">Открыть проект на</h3>
+        <div class="button">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" width=45px
+                 style="display:block">
+        </div>
+    </a>
+</div>
+</body>
+</html>
