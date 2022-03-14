@@ -1,31 +1,27 @@
-package tbspring.models;
+package tbspring.entities;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import tbspring.entities.UserEntity;
+import javax.persistence.*;
 
-import javax.annotation.PostConstruct;
-import java.util.Map;
-
-public class User {
-    protected String directory;
-
-    protected String userName;
+@Entity
+@Table(name = "users")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long userId;
+    protected String directory;
+    protected String userName;
     protected String userPic;
-    protected UserEntity.POSITION position;
+    protected POSITION position;
     protected byte[] phone;
     protected String email;
-    protected UserEntity.GENDER gender;
+    protected GENDER gender;
+    private String password;
 
-    public User(String directory,
-                 String userName,
-                 long userId,
-                 String userPic,
-                 UserEntity.POSITION position,
-                 byte[] phone,
-                 String email,
-                 UserEntity.GENDER gender) {
+    public String getDirectory() {
+        return directory;
+    }
+
+    public UserEntity(String directory, String userName, long userId, String userPic, POSITION position, byte[] phone, String email, GENDER gender, String password) {
         this.directory = directory;
         this.userName = userName;
         this.userId = userId;
@@ -34,21 +30,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.gender = gender;
-    }
-
-    public static User toModel(UserEntity userEntity) {
-        return new User(userEntity.getDirectory(),
-                userEntity.getUserName(),
-                userEntity.getUserId(),
-                userEntity.getUserPic(),
-                userEntity.getPosition(),
-                userEntity.getPhone(),
-                userEntity.getEmail(),
-                userEntity.getGender());
-    }
-
-    public String getDirectory() {
-        return directory;
+        this.password = password;
     }
 
     public void setDirectory(String directory) {
@@ -80,19 +62,19 @@ public class User {
         this.userPic = path;
     }
 
-    public UserEntity.GENDER getGender() {
+    public GENDER getGender() {
         return gender;
     }
 
-    public void setGender(UserEntity.GENDER gender) {
+    public void setGender(GENDER gender) {
         this.gender = gender;
     }
 
-    public UserEntity.POSITION getPosition() {
+    public POSITION getPosition() {
         return position;
     }
 
-    public void setPosition(UserEntity.POSITION position) {
+    public void setPosition(POSITION position) {
         this.position = position;
     }
 
@@ -110,5 +92,16 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public enum GENDER {
+        MALE,
+        FEMALE
+    }
+
+    public enum POSITION {
+        MANAGER,
+        EXECUTOR
     }
 }

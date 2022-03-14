@@ -8,6 +8,7 @@
   <component name="DBNavigator.Project.DataExportManager">
     <export-instructions>
       <create-header value="true" />
+      <friendly-headers value="false" />
       <quote-values-containing-separator value="true" />
       <quote-all-values value="false" />
       <value-separator value="" />
@@ -26,25 +27,21 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="2d44b43c-47fe-47f3-8a7b-5e7cbbc4e56d">
-      <console name="Taskbook" type="STANDARD" schema="taskbook" session="Main"><![CDATA[CREATE TABLE]]></console>
+    <connection id="612aaa77-b391-4067-98aa-acb0cbb774e2">
+      <console name="Connection" type="STANDARD" schema="information_schema" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="2d44b43c-47fe-47f3-8a7b-5e7cbbc4e56d" />
-  </component>
-  <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="2d44b43c-47fe-47f3-8a7b-5e7cbbc4e56d" dataset="taskbook.tasks" active-filter-id="0a35ca63-7bef-4589-9e07-0746d1e99076">
-      <filter id="0a35ca63-7bef-4589-9e07-0746d1e99076" name="1" temporary="false" custom-name="false" type="basic" join-type="AND">
-        <condition column="task id" operator="=" value="1" active="true" />
-      </filter>
-    </filter-actions>
+    <connection id="612aaa77-b391-4067-98aa-acb0cbb774e2" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -61,34 +58,34 @@
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
+  <component name="DBNavigator.Project.ParserDiagnosticsManager">
+    <diagnostics-history />
+  </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
     <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="2d44b43c-47fe-47f3-8a7b-5e7cbbc4e56d" active="true">
+      <connection id="612aaa77-b391-4067-98aa-acb0cbb774e2" active="true" signed="false">
         <database>
-          <name value="Taskbook" />
+          <name value="Connection" />
           <description value="" />
-          <database-type value="MYSQL" />
+          <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="8.0" />
+          <database-version value="14.2" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="127.0.0.1" />
-          <port value="3306" />
-          <database value="Taskbook" />
+          <host value="localhost" />
+          <port value="5432" />
+          <database value="taskdb" />
           <type value="USER_PASSWORD" />
           <user value="root" />
-          <deprecated-pwd value="V0c2UWtnNTk=" />
+          <deprecated-pwd value="MTIzNA==" />
         </database>
         <properties>
           <auto-commit value="false" />
-          <properties>
-            <property key="serverTimezone" value="UTC" />
-          </properties>
         </properties>
         <ssh-settings>
           <active value="false" />
@@ -110,11 +107,12 @@
           <charset value="UTF-8" />
           <session-management value="true" />
           <ddl-file-binding value="true" />
-          <database-logging value="false" />
+          <database-logging value="true" />
           <connect-automatically value="true" />
           <restore-workspace value="true" />
-          <restore-workspace-deep value="true" />
+          <restore-workspace-deep value="false" />
           <environment-type value="default" />
+          <connectivity-timeout value="5" />
           <idle-time-to-disconnect value="30" />
           <idle-time-to-disconnect-pool value="5" />
           <credential-expiry-time value="10" />
@@ -211,8 +209,6 @@
           <object-type name="TABLE" enabled="true" />
           <object-type name="VIEW" enabled="true" />
           <object-type name="MATERIALIZED VIEW" enabled="true" />
-          <object-type name="NESTED TABLE" enabled="false" />
-          <object-type name="COLUMN" enabled="false" />
           <object-type name="INDEX" enabled="true" />
           <object-type name="CONSTRAINT" enabled="true" />
           <object-type name="DATASET TRIGGER" enabled="true" />
@@ -223,8 +219,6 @@
           <object-type name="FUNCTION" enabled="true" />
           <object-type name="PACKAGE" enabled="true" />
           <object-type name="TYPE" enabled="true" />
-          <object-type name="TYPE ATTRIBUTE" enabled="false" />
-          <object-type name="ARGUMENT" enabled="false" />
           <object-type name="DIMENSION" enabled="false" />
           <object-type name="CLUSTER" enabled="false" />
           <object-type name="DBLINK" enabled="true" />

@@ -1,9 +1,16 @@
-package tbspring.models;
+package tbspring.entities;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
 import java.util.Date;
 
-public class Task {
-
+@Entity
+@Table(name = "tasks")
+public class TaskEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int taskId;
     private Byte priority;
     private int creatorId;
@@ -15,7 +22,7 @@ public class Task {
     private Date deadline;
     private Boolean active;
 
-    public Task(int taskId, String title, Date deadline) {
+    public TaskEntity(int taskId, String title, Date deadline) {
         setTaskId(taskId);
         setTitle(title);
         setDeadline(deadline);

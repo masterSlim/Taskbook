@@ -1,8 +1,9 @@
+/*
 package tbspring.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tbspring.models.Task;
+import tbspring.models.TaskModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,36 +33,37 @@ public class ServiceDBTask {
         connection.close();
     }
 
-    public static ObservableList<Task> getTasksExecutor(long userId) throws SQLException {
+    public static ObservableList<TaskModel> getTasksExecutor(long userId) throws SQLException {
         Connection connection = ServiceDB.getConnection();
         PreparedStatement getTasks = connection.prepareStatement("SELECT task_id, title, deadline FROM tasks WHERE executor_id =? AND is_active = ? ;");
         getTasks.setLong(1, userId);
         getTasks.setBoolean(2, true);
         ResultSet rsTasks = getTasks.executeQuery();
-        ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
+        ObservableList<TaskModel> taskObservableList = FXCollections.observableArrayList();
         while (rsTasks.next()) {
 
-            Task temp = new Task(rsTasks.getInt("task_id"), rsTasks.getString("title"), rsTasks.getDate("deadline"));
+            TaskModel temp = new TaskModel(rsTasks.getInt("task_id"), rsTasks.getString("title"), rsTasks.getDate("deadline"));
             taskObservableList.add(temp);
         }
         connection.close();
         return taskObservableList;
     }
 
-    public static ObservableList<Task> getTasksManager(long userId) throws SQLException {
+    public static ObservableList<TaskModel> getTasksManager(long userId) throws SQLException {
         Connection connection = ServiceDB.getConnection();
         PreparedStatement getTasks = connection.prepareStatement("SELECT task_id, title, deadline FROM tasks WHERE creator_id =?;");
         getTasks.setLong(1, userId);
         ResultSet rsTasks = getTasks.executeQuery();
-        ObservableList<Task> taskList = FXCollections.observableArrayList();
+        ObservableList<TaskModel> taskList = FXCollections.observableArrayList();
         while (rsTasks.next()) {
             int taskId = rsTasks.getInt("task_id");
             String title = rsTasks.getString("title");
             Date date = rsTasks.getDate("deadline");
-            Task temp = new Task(taskId, title, date);
+            TaskModel temp = new TaskModel(taskId, title, date);
             taskList.add(temp);
         }
         connection.close();
         return taskList;
     }
 }
+*/

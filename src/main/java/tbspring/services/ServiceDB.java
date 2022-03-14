@@ -1,3 +1,4 @@
+/*
 package tbspring.services;
 
 import java.sql.*;
@@ -7,11 +8,13 @@ public class ServiceDB {
     private static String serverPassword = "WG6Qkg59";
     private static String connectionUrl = "jdbc:mysql://127.0.0.1:3306/Taskbook? serverTimezone=UTC";
 
-    /**
+    */
+/**
      * Метод проверяет соединение с сервером базы данных и
      *
      * @return boolean true при удачном подключении и false при его отсутствии
-     */
+     *//*
+
 
     public static boolean testConnection() {
         try {
@@ -71,3 +74,4 @@ public class ServiceDB {
 
 
 
+*/

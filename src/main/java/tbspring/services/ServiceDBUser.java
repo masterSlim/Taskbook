@@ -1,8 +1,9 @@
+/*
 package tbspring.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tbspring.models.ActiveUser;
+import tbspring.models.ActiveUserModel;
 import tbspring.models.User;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ServiceDBUser {
-    public static void getUserId(ActiveUser activeUser) throws SQLException {
+    public static void getUserId(ActiveUserModel activeUser) throws SQLException {
         Connection connection = ServiceDB.getConnection();
         PreparedStatement getUser = connection.prepareStatement("SELECT idUser FROM users WHERE user_name = ?;");
         String userName = activeUser.getUserName();
@@ -48,12 +49,12 @@ public class ServiceDBUser {
         return allUsers;
     }
 
-    public static ActiveUser setActiveUser(String userName) throws SQLException {
+    public static ActiveUserModel setActiveUser(String userName) throws SQLException {
         Connection connection = ServiceDB.getConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE user_name = ?;");
         ps.setString(1, userName);
         ResultSet rs = ps.executeQuery();
-        ActiveUser activeUser = new ActiveUser();
+        ActiveUserModel activeUser = new ActiveUserModel();
         while (rs.next()) {
             activeUser.setUserId(rs.getInt("idUser"));
             activeUser.setUserName(rs.getString("user_name"));
@@ -149,3 +150,4 @@ public class ServiceDBUser {
     }
 }
 
+*/
