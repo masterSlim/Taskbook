@@ -21,16 +21,7 @@ public class UserEntity {
         return directory;
     }
 
-    public UserEntity(String directory, String userName, long userId, String userPic, POSITION position, byte[] phone, String email, GENDER gender, String password) {
-        this.directory = directory;
-        this.userName = userName;
-        this.userId = userId;
-        this.userPic = userPic;
-        this.position = position;
-        this.phone = phone;
-        this.email = email;
-        this.gender = gender;
-        this.password = password;
+    public UserEntity() {
     }
 
     public void setDirectory(String directory) {

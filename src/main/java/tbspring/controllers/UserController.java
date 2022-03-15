@@ -5,29 +5,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tbspring.entities.UserEntity;
+import tbspring.models.User;
 import tbspring.services.UserService;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @RestController
-@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping
-    public ResponseEntity<?> showUser(@RequestParam long id) {
+    @GetMapping("/user")
+    public ResponseEntity<User> showUser(@RequestParam long id) {
         try {
-            return ResponseEntity.ok(userService.getUser(id));
+            return ResponseEntity.ok(User.toModel(userService.getUser(id)));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/users")
-    public ResponseEntity<?> showAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<Collection<User>> showAllUsers() {
+        Collection<User> response = new ArrayList<>();
+        for (UserEntity e : userService.getAllUsers()) {
+            response.add(User.toModel(e));
+        }
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping
+    @PostMapping("/user")
     public ResponseEntity<?> saveUser(@RequestBody UserEntity user) {
         try {
             return ResponseEntity.ok(userService.saveUser(user));
@@ -36,8 +43,8 @@ public class UserController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> deleteUser(@RequestParam long id){
+    @DeleteMapping("/user")
+    public ResponseEntity<?> deleteUser(@RequestParam long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

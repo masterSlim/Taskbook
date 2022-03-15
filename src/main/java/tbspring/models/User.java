@@ -1,15 +1,9 @@
 package tbspring.models;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import tbspring.entities.UserEntity;
-
-import javax.annotation.PostConstruct;
-import java.util.Map;
 
 public class User {
     protected String directory;
-
     protected String userName;
     protected long userId;
     protected String userPic;
@@ -19,13 +13,13 @@ public class User {
     protected UserEntity.GENDER gender;
 
     public User(String directory,
-                 String userName,
-                 long userId,
-                 String userPic,
-                 UserEntity.POSITION position,
-                 byte[] phone,
-                 String email,
-                 UserEntity.GENDER gender) {
+                String userName,
+                long userId,
+                String userPic,
+                UserEntity.POSITION position,
+                byte[] phone,
+                String email,
+                UserEntity.GENDER gender) {
         this.directory = directory;
         this.userName = userName;
         this.userId = userId;

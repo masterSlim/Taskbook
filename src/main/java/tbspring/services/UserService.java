@@ -15,7 +15,7 @@ public class UserService {
 
     public UserEntity getUser(long id) {
         UserEntity user = userRepository.findById(id).get();
-        if (user != null) {
+        if (user == null) {
             throw new NullPointerException("Пользователь не найден");
         } else return user;
     }

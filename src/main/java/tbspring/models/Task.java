@@ -1,14 +1,11 @@
-package tbspring.entities;
+package tbspring.models;
 
 
-import javax.persistence.*;
+import tbspring.entities.TaskEntity;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "tasks")
-public class TaskEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Task {
     private long taskId;
     private Byte priority;
     private long creatorId;
@@ -20,7 +17,15 @@ public class TaskEntity {
     private Date deadline;
     private Boolean active;
 
-    public TaskEntity() {
+    public Task(long taskId, String title, Date deadline) {
+        setTaskId(taskId);
+        setTitle(title);
+        setDeadline(deadline);
+    }
+
+    public static Task toModel(TaskEntity taskEntity) {
+        return new Task(taskEntity.getTaskId(), taskEntity.getTitle(),
+                taskEntity.getDeadline());
     }
 
     public Byte getPriority() {
@@ -35,7 +40,7 @@ public class TaskEntity {
         return creatorId;
     }
 
-    public void setCreatorId(int creatorId) {
+    public void setCreatorId(long creatorId) {
         this.creatorId = creatorId;
     }
 
@@ -51,7 +56,7 @@ public class TaskEntity {
         return executorId;
     }
 
-    public void setExecutorId(int executorId) {
+    public void setExecutorId(long executorId) {
         this.executorId = executorId;
     }
 
@@ -83,7 +88,7 @@ public class TaskEntity {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(long taskId) {
         this.taskId = taskId;
     }
 
