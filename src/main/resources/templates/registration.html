@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="../css/Style.css" th:href="@{/css/Style.css}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>im title</title>
+</head>
+<body class="gradient-background">
+<div class="flex-column stage" align="center">
+    <h1 class="h1" align="center">Регистрация</h1>
+    <form id="registration" method="post">
+      <h3 th:if="${error}" class="area h3" th:text="${cause}"></h3>
+      <h3>Придумайте логин</h3>
+        <input class="area h3" type="text" name="userName" placeholder="Имя пользователя" required="true">
+        <h3>Придумайте пароль</h3>
+        <input class="area h3" type="password" name="password" placeholder="Пароль" required="true">
+        <h3>Подтвердите пароль</h3>
+        <input class="area h3" type="password" name="confirm" placeholder="Подтвердите пароль" required="true">
+        <h3>Вы регистрируетесь как</h3>
+        <select class="area h3" name="role" required="true">
+          <option th:each="role : ${roles}"
+                  th:text="${role}"
+                  th:value="${role}">
+        </select>
+    </form>
+    <button type="submit" form="registration" class="button-attention" name="login-button">Войти</button>
+</div>
+<div align=center>
+    <a class="flex-row hyperlink" href="https://github.com/masterSlim/Taskbook">
+        <h3 class="h3 text">Открыть проект на</h3>
+        <div class="button">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" width=45px
+                 style="display:block">
+        </div>
+    </a>
+</div>
+</body>
+</html>

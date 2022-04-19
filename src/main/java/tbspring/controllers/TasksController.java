@@ -8,6 +8,7 @@ import tbspring.entities.TaskEntity;
 import tbspring.models.Task;
 import tbspring.services.TaskService;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,7 +27,7 @@ public class TasksController {
     }
 
     @GetMapping("/tasks")
-    public ResponseEntity<Collection<Task>> showAllTasksForUser(@RequestParam long userId) {
+    public ResponseEntity<Collection<Task>> showAllTasksForUser(@RequestParam long userId, Principal principal ) {
         Collection<Task> response = new ArrayList<>();
         for (TaskEntity e : taskService.getAllTasksForUser(userId)) {
             response.add(Task.toModel(e));

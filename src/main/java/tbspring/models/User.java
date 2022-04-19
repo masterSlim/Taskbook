@@ -1,14 +1,18 @@
 package tbspring.models;
 
+import tbspring.entities.Role;
 import tbspring.entities.UserEntity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class User {
     protected String directory;
     protected String userName;
     protected long userId;
     protected String userPic;
-    protected UserEntity.POSITION position;
-    protected byte[] phone;
+    protected HashSet<Role> roles;
+    protected Number[] phone;
     protected String email;
     protected UserEntity.GENDER gender;
 
@@ -16,26 +20,34 @@ public class User {
                 String userName,
                 long userId,
                 String userPic,
-                UserEntity.POSITION position,
-                byte[] phone,
+                HashSet<Role> roles,
+                Number[] phone,
                 String email,
                 UserEntity.GENDER gender) {
         this.directory = directory;
         this.userName = userName;
         this.userId = userId;
         this.userPic = userPic;
-        this.position = position;
+        this.roles = roles;
         this.phone = phone;
         this.email = email;
         this.gender = gender;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(HashSet<Role> roles) {
+        this.roles = roles;
+    }
+
     public static User toModel(UserEntity userEntity) {
         return new User(userEntity.getDirectory(),
-                userEntity.getUserName(),
+                userEntity.getUsername(),
                 userEntity.getUserId(),
                 userEntity.getUserPic(),
-                userEntity.getPosition(),
+                userEntity.getAuthorities(),
                 userEntity.getPhone(),
                 userEntity.getEmail(),
                 userEntity.getGender());
@@ -82,19 +94,11 @@ public class User {
         this.gender = gender;
     }
 
-    public UserEntity.POSITION getPosition() {
-        return position;
-    }
-
-    public void setPosition(UserEntity.POSITION position) {
-        this.position = position;
-    }
-
-    public byte[] getPhone() {
+    public Number[] getPhone() {
         return phone;
     }
 
-    public void setPhone(byte[] phone) {
+    public void setPhone(Number[] phone) {
         this.phone = phone;
     }
 

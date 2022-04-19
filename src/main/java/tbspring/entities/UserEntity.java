@@ -1,20 +1,70 @@
 package tbspring.entities;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long userId;
     protected String directory;
+    @Column(unique = true)
     protected String userName;
     protected String userPic;
-    protected POSITION position;
-    protected byte[] phone;
+    protected HashSet<Role> role;
+    protected Number[] phone;
     protected String email;
+    @Enumerated(EnumType.ORDINAL)
     protected GENDER gender;
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public HashSet<Role> getAuthorities() {
+        return role;
+    }
+
+    public void setRole(HashSet<Role> roles) {
+        this.role = roles;
+    }
+
+    public void addRole(Role role) {this.role.add(role);}
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String password;
 
     public String getDirectory() {
@@ -34,10 +84,6 @@ public class UserEntity {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public void setUserName(String userName) {
@@ -61,19 +107,11 @@ public class UserEntity {
         this.gender = gender;
     }
 
-    public POSITION getPosition() {
-        return position;
-    }
-
-    public void setPosition(POSITION position) {
-        this.position = position;
-    }
-
-    public byte[] getPhone() {
+    public Number[] getPhone() {
         return phone;
     }
 
-    public void setPhone(byte[] phone) {
+    public void setPhone(Number[] phone) {
         this.phone = phone;
     }
 
@@ -89,10 +127,5 @@ public class UserEntity {
     public enum GENDER {
         MALE,
         FEMALE
-    }
-
-    public enum POSITION {
-        MANAGER,
-        EXECUTOR
     }
 }

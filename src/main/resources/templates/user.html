@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="../css/Style.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>im title</title>
+</head>
+<body class="gradient-background">
+<div class="flex-column stage" align="center">
+    <p class="h1" align="center" th:text="${username}"></p>
+    <p class="h1" align="center" th:text="${user.userId}"></p>
+    <form th:action="@{/logout}" method="POST">
+     <input class="button-attention" type="submit" value="Выйти"/>
+</form>
+</div>
+</body>
+</html>
